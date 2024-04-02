@@ -28,7 +28,7 @@ public class HomePageServlet extends HttpServlet {
             DBConnection.getDBConnection(getServletContext());
             connection = DBConnection.connection;
 
-            String selectSQL = "SELECT * FROM cardTable";
+            String selectSQL = "SELECT * FROM pokerTable";
             preparedStatement = connection.prepareStatement(selectSQL);
             resultSet = preparedStatement.executeQuery();
 
@@ -38,11 +38,13 @@ public class HomePageServlet extends HttpServlet {
                 String flop = resultSet.getString("flop");
                 int turn = resultSet.getInt("turn");
                 int players = resultSet.getInt("players");
+                int stats = resultSet.getInt("stats");
                 
                 jsonData.append("{\"hand\":\"").append(hand).append("\",")
                         .append("\"flop\":\"").append(flop).append("\",")
                         .append("\"turn\":").append(turn).append(",")
-                        .append("\"players\":\"").append(players).append("\",");
+                        .append("\"players\":\"").append(players).append("\",")
+                        .append("\"stats\":").append(stats).append("},");
             }
             if (jsonData.charAt(jsonData.length() - 1) == ',') {
                 jsonData.setCharAt(jsonData.length() - 1, ']'); // Replace last comma with ']'
