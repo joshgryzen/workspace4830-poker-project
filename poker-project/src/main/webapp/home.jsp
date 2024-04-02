@@ -36,15 +36,13 @@ footer {
 <script>
 $(document).ready(function() {
     // Initialize DataTable
-    var table = $('#cardTable').DataTable({
+    var table = $('#pokerTable').DataTable({
                 columnDefs: [{
                     targets: -1, // Target the last column (Quantity)
                     render: function(data, type, row, meta) {
                         // Render increment and decrement buttons and delete button
-                        return '<button class="increment" data-row="' + meta.row + '">+</button>' +
-                            '<span>' + data + '</span>' +
-                            '<button class="decrement" data-row="' + meta.row + '">-</button>' +
-                            '<button class="delete" data-row="' + meta.row + '">Delete</button>';
+                        return '<span>' + data + '</span>' +
+                            '&emsp;<button data-row="' + meta.row + '">Play Test</button>';
                             
                     }
                 }]
@@ -56,13 +54,13 @@ $(document).ready(function() {
         method: 'POST', // Use POST method to send data
         success: function(response) {
             // Iterate over the retrieved cards and add them to the table
-            response.forEach(function(card) {
+            response.forEach(function(game) {
                 table.row.add([
-                    card.color,
-                    card.type,
-                    card.cmc,
-                    card.name,
-                    card.quantity
+                	game.hand,
+                	game.flop,
+                	game.turn,
+                	game.players,
+                	game.stats
                 ]).draw();
             });
         },
@@ -71,72 +69,7 @@ $(document).ready(function() {
             console.error(error);
         }
     });
-
-    // Handle click events for increment and decrement buttons
-    $('#cardTable tbody').on('click', 'button.increment', function() {
-        var rowIdx = $(this).data('row');
-        var rowData = table.row(rowIdx).data(); // Get the data of the row
-        var cardName = rowData[3]; // Assuming the card name is in the 4th column
-        var quantity = parseInt(table.cell(rowIdx, -1).data()) + 1; // Get current quantity and increment
-        table.cell(rowIdx, -1).data(quantity).draw(false);
-        updateQuantity(cardName, quantity);
-    });
-
-    $('#cardTable tbody').on('click', 'button.decrement', function() {
-        var rowIdx = $(this).data('row');
-        var rowData = table.row(rowIdx).data(); // Get the data of the row
-        var cardName = rowData[3]; // Assuming the card name is in the 4th column
-        var quantity = parseInt(table.cell(rowIdx, -1).data());
-        if (quantity > 0) {
-            quantity--; // Decrement only if quantity is greater than 0
-            table.cell(rowIdx, -1).data(quantity).draw(false);
-        }
-        updateQuantity(cardName, quantity);
-    });
     
-    $('#cardTable tbody').on('click', 'button.delete', function() {
-        var rowIdx = $(this).data('row');
-        var rowData = table.row(rowIdx).data();
-        var cardName = rowData[3]; // Assuming the card name is in the 4th column
-        deleteCard(cardName);
-        table.row($(this).parents('tr')).remove().draw(false); // Remove the row from the DataTable
-    });
-
-    // Function to delete the card
-    function deleteCard(cardName) {
-        $.ajax({
-            url: 'DeleteCardServlet', // URL of your servlet for deleting a card
-            method: 'POST',
-            data: {
-                cardName: cardName
-            },
-            success: function(response) {
-                // Handle success response if needed
-            },
-            error: function(xhr, status, error) {
-                console.error(error);
-            }
-        });
-    }
-    
-    function updateQuantity(cardName, quantity) {
-        $.ajax({
-            url: 'UpdateQuantityServlet', // URL of your servlet for updating quantity
-            method: 'POST',
-            data: {
-                cardName: cardName,
-                quantity: quantity
-            },
-            success: function (response) {
-                // Handle success response if needed
-            },
-            error: function (xhr, status, error) {
-                // Handle errors
-                console.error(error);
-            }
-        });
-    }
-
 });</script>
 </head>
 <body>
@@ -148,7 +81,7 @@ $(document).ready(function() {
 		<a href="/poker-project/insert.html">Insert Cards</a> <br>
     </nav>
     <section>
-    <table id="cardTable" class="display">
+    <table id="pokerTable" class="display">
         <thead>
             <tr>
                 <th>Hand</th>

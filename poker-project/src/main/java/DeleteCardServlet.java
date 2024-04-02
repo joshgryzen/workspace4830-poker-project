@@ -31,7 +31,7 @@ public class DeleteCardServlet extends HttpServlet {
             connection = DBConnection.connection;
 
             // SQL query to delete the card from the database
-            String deleteSQL = "DELETE FROM cardTable WHERE name = ?";
+            String deleteSQL = "DELETE FROM pokerTable WHERE name = ?";
 
             // Create prepared statement
             preparedStatement = connection.prepareStatement(deleteSQL);

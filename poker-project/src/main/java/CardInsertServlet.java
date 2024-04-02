@@ -29,31 +29,18 @@ public class CardInsertServlet extends HttpServlet {
 
       Connection connection = null;
       
-      // TODO: Update sql queries with our table information
-      String selectSQL = "SELECT quantity FROM cardTable WHERE name = ?";
-      String insertSql = "INSERT INTO cardTable (hand, flop, turn, players) VALUES (?, ?, ?, ?)";
+      String insertSql = "INSERT INTO pokerTable (hand, flop, turn, players) VALUES (?, ?, ?, ?)";
 
       try {
           DBConnection.getDBConnection(getServletContext());
           connection = DBConnection.connection;
+    	  PreparedStatement insertStmt = connection.prepareStatement(insertSql);
+          insertStmt.setString(1, hand);
+          insertStmt.setString(2, flop);
+          insertStmt.setString(3, turn);
+          insertStmt.setString(4, players);
+          insertStmt.executeUpdate();
           
-          // Check if the card already exists in the database
-          PreparedStatement selectStmt = connection.prepareStatement(selectSQL);
-          selectStmt.setString(1, turn);
-          ResultSet resultSet = selectStmt.executeQuery();
-
-          if (resultSet.next()) {
-              // Hand data already exists
-              // TODO: Handle duplicates or don't
-          } else {
-              // Hand data doesn't already exist
-        	  PreparedStatement insertStmt = connection.prepareStatement(insertSql);
-              insertStmt.setString(1, hand);
-              insertStmt.setString(2, flop);
-              insertStmt.setString(3, turn);
-              insertStmt.setString(4, players);
-              insertStmt.executeUpdate();
-          }
           
           connection.close();
       } catch (Exception e) {
