@@ -56,7 +56,7 @@ public class MonteCarloPoker {
             String opponentBoard = String.join("", fullBoard);
             int opponentHandRank = Poker.valueHand(opponentHand + opponentBoard);
 
-            if (opponentHandRank < myHandRank) {
+            if (opponentHandRank > myHandRank) {
                 resultState = 1; // Lose
                 break;
             } else if (opponentHandRank == myHandRank) {
