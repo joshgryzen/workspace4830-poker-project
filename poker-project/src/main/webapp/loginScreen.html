@@ -33,15 +33,22 @@ header {
 
 
 
-button {
-  background-color: #04AA6D;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
+.buttonTab {
+
+    display: inline-block;
+    padding: 5px 20px;
+    font-size: 15px;
+    background-color: #2ECC71;
+    color: black;
+    margin: 0 5px; 
 }
+.centered {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    width: 100%; 
+}
+
 
 button:hover {
   opacity: 0.8;
@@ -55,7 +62,7 @@ button:hover {
 
 form {
     outline: 5px solid black;
-    padding: 20px; /* Add some padding for better visibility */
+    padding: 20px;
 }
 
 .imgcontainer {
@@ -69,9 +76,10 @@ img.avatar {
 }
 
 .container {
-    width: 50%; /* Make the container half the size of its parent */
-    margin: 0 auto; /* Center the container */
+    width: 50%;
+    margin: 0 auto; 
 }
+
 span.psw {
   float: right;
   padding-top: 100px;
@@ -80,17 +88,17 @@ span.psw {
 
   .header-container {
     display: flex;
-    align-items: center; /* Vertically center the items */
-    justify-content: center; /* Horizontally center the items */
+    align-items: center; 
+    justify-content: center;
   }
   .header-text {
     color: white;
-    margin-right: 0px; /* Add some spacing between the image and text */
+    margin-right: 0px; 
   }
 
 
 
-/* Change styles for span and cancel button on extra small screens */
+
 @media screen and (max-width: 300px) {
   span.psw {
      display: block;
@@ -106,37 +114,42 @@ span.psw {
 </head>
 <body style="background-color: black;">
 
-    <div class="header-container">
-        <h1 class="header-text" style="color: white;">Login Page</h1>
+<div class="header-container">
+    <h1 class="header-text" style="color: white; font-size: 4em;">Login Page</h1>
+</div>
+    
+    <div class="centered">
+        <button class="buttonTab" onclick="location.href='/poker-project/(inprogress)'" type="button">
+            About Page(in progress)
+        </button>
+        <button class="buttonTab" onclick="location.href='/poker-project/signUpPage.html'" type="button">
+            Sign Up Page!
+        </button>
     </div>
     
     <div class="header-container">
         <img src="poker_PNG56.png" alt="Logo" width="200" height="150">
     </div>
 
-  <div class="container">
+  	<div class="container">
   
 
-    <!-- Enters Username: ID = uname -->
-    <label for="uname"  style="color: white;"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="uname" required>
+      <!-- Enters Username: ID = uname -->
+      <label for="uname"  style="color: white;"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="uname" required>
 
 
-    <!-- Enters Password: ID = psw -->
-	<label for="psw" style="color: white;"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
-        
-    <button type="submit">Login</button>
+      <!-- Enters Password: ID = psw -->
+      <label for="psw" style="color: white;"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required>
 
-  </div>
+      <button type="submit" style="padding: 10px 80px; font-size: 20px; background-color: #2ECC71; color: white;">Login</button>
+
+  	</div>
 
 
-    <header>
-    <span style=" font-size: 40pt">ABOUT</span>
-    </header>
-    
     <nav>
-	<a href="/poker-project/home.jsp">Temp Home Link</a> <br>
+      <a href="/poker-project/home.jsp">Temp Home Link</a> <br>
 	</nav>
 
 
