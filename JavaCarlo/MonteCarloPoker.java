@@ -24,17 +24,21 @@ public class MonteCarloPoker {
     static int simulate(List<Card> hand, List<Card> table, int players) {
         // Create a copy of the deck
         List<Card> remainingDeck = new ArrayList<>(deck);
-
         // Remove cards that are already dealt
         remainingDeck.removeAll(hand);
         remainingDeck.removeAll(table);
 
+        // Combine player's hand and community cards
+        List<Card> fullHand = new ArrayList<>(hand);
+        fullHand.addAll(table);
+
         // Deal cards to players
         List<List<Card>> playerHands = new ArrayList<>();
         for (int i = 0; i < players; i++) {
-            List<Card> playerHand = new ArrayList<>(hand);
-            playerHand.add(remainingDeck.remove(0));
-            playerHand.add(remainingDeck.remove(0));
+            List<Card> playerHand = new ArrayList<>(table); // Include community cards
+            for (int j = 0; j < 2; j++) {
+                playerHand.add(remainingDeck.remove(0)); // Deal two cards to each player
+            }
             playerHands.add(playerHand);
         }
 
@@ -45,15 +49,11 @@ public class MonteCarloPoker {
         }
 
         // Evaluate hands and determine winner
-        String myHand = String.join("", hand);
-        String myBoard = String.join("", fullBoard);
-        int myHandRank = Poker.valueHand(myHand + myBoard);
+        int myHandRank = Poker.valueHand(fullHand.toArray(new Card[0]));
 
         int resultState = 0; // Assume win until proven otherwise
-        for (List<String> playerHand : playerHands) {
-            String opponentHand = String.join("", playerHand);
-            String opponentBoard = String.join("", fullBoard);
-            int opponentHandRank = Poker.valueHand(opponentHand + opponentBoard);
+        for (List<Card> playerHand : playerHands) {
+            int opponentHandRank = Poker.valueHand(playerHand.toArray(new Card[0]));
 
             if (opponentHandRank > myHandRank) {
                 resultState = 1; // Lose
@@ -80,13 +80,13 @@ public class MonteCarloPoker {
     }
 
     public static void main(String[] args) {
-        // Example usage
-        List<Card> myHand = Arrays.asList("As", "Ks");
-        List<Card> communityCards = Arrays.asList("Qs", "Js", "Ts");
-        int numberOfPlayers = 4;
-        int numberOfTrials = 10000;
+        // Example usage:
+        List<Card> hand = Arrays.asList(new Card(13, 1), new Card(13, 2)); // Example hand
+        List<Card> table = Arrays.asList(new Card(12, 0), new Card(13, 0), new Card(14, 0)); // Example community cards
+        int players = 4; // Example number of players
+        int trials = 100000; // Example number of Monte Carlo trials
 
-        double winRatio = monteCarloWinRatio(myHand, communityCards, numberOfPlayers, numberOfTrials);
-        System.out.println("Win ratio: " + winRatio + "%");
+        double winRatio = monteCarloWinRatio(hand, table, players, trials);
+        System.out.println("Win Ratio: " + winRatio + "%");
     }
 }
