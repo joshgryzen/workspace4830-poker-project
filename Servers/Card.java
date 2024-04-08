@@ -7,11 +7,11 @@ public class Card {
         this.suit = suit;
     }
 
-    public int rank() {
+    public int getRank() {
         return rank;
     }
 
-    public int suit() {
+    public int getSuit() {
         return suit;
     }
 }
