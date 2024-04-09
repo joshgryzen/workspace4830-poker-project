@@ -27,13 +27,13 @@ public class StringConversion extends HttpServlet {
         String userInputPlayers = request.getParameter("players");
         try {
             // Convert the string input to an integer
-            int intValue = Integer.parseInt(userInputHand);
+            int intValueHand = Integer.parseInt(userInputHand);
 
             // Now you have the integer value, you can use it in your servlet logic
             // For example, you can send it to another method, save it to a database, etc.
 
             // Example: printing the integer value
-            System.out.println("Integer value: " + intValue);
+            System.out.println("Integer value: " + intValueHand);
 
             // Here you can continue with your servlet logic
             // For example, forwarding the request or sending a response back to the client
