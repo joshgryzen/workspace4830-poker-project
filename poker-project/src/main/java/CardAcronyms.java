@@ -2,19 +2,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CardAcronyms {
-    // Map to store the string acronyms of suits
     static Map<Character, Integer> suitIndexes = new HashMap<>();
-    // Map to store the string acronyms of ranks
     static Map<Character, Integer> rankIndexes = new HashMap<>();
 
     static {
-        // Populate suit indexes
         suitIndexes.put('D', 0); // Diamonds
         suitIndexes.put('C', 1); // Clubs
         suitIndexes.put('H', 2); // Hearts
         suitIndexes.put('S', 3); // Spades
 
-        // Populate rank indexes
         rankIndexes.put('2', 2);
         rankIndexes.put('3', 3);
         rankIndexes.put('4', 4);
@@ -29,37 +25,51 @@ public class CardAcronyms {
         rankIndexes.put('K', 13);
         rankIndexes.put('A', 14);
     }
-    public static String input1 = "KS+JH+2D+3C+5S"; // Example input with 5 cards separated by '+'
-    public static String input2 = "KSJH"; // Example input with 2 cards without any separator
+
+    public static String input2 = "2D+3C+5S"; // Example input with 5 cards separated by '+'
+    public static String input1 = "KS+JH"; // Example input with 2 cards without any separator
 
     public static void main(String[] args) {
+        Card[] cardsInput2 = parseInput(input2);
+        Card[] cardsInput1 = parseInput(input1);
 
-        parseInput(input1);
-        parseInput(input2);
+        // Print out the card information
+        System.out.println("Cards from input2:");
+        for (Card card : cardsInput2) {
+            System.out.println("Rank: " + card.rank() + ", Suit: " + card.suit());
+        }
+
+        System.out.println("\nCards from input1:");
+        for (Card card : cardsInput1) {
+            System.out.println("Rank: " + card.rank() + ", Suit: " + card.suit());
+        }
     }
 
-    // Method to parse input and process cards
-    static void parseInput(String input) {
+    static Card[] parseInput(String input) {
         input = input.toUpperCase();
+        String[] cardStrings = input.split("\\+");
+        Card[] cards = new Card[cardStrings.length];
 
-        String[] cards;
-        if (input.contains("+")) {
-            cards = input.split("\\+");
-        } else {
-            cards = new String[] { input.substring(0, 2), input.substring(2) };
+        for (int i = 0; i < cardStrings.length; i++) {
+            cards[i] = createCard(cardStrings[i]);
         }
 
-        for (String card : cards) {
-            int[] cardIndexes = getCardIndexes(card);
-            System.out.println("Indexes for " + card + ": Suit - " + cardIndexes[0] + ", Rank - " + cardIndexes[1]);
-        }
+        return cards;
     }
 
-    // Method to get the suit and rank indexes of a card
-    static int[] getCardIndexes(String card) {
-        int[] indexes = new int[2];
-        indexes[0] = suitIndexes.getOrDefault(card.charAt(1), -1);
-        indexes[1] = rankIndexes.getOrDefault(card.charAt(0), -1);
-        return indexes;
+    static Card createCard(String cardString) {
+        char rankChar = cardString.charAt(0);
+        char suitChar = cardString.charAt(1);
+
+        int rank = rankIndexes.getOrDefault(rankChar, -1);
+        int suit = suitIndexes.getOrDefault(suitChar, -1);
+
+        if (rank != -1 && suit != -1) {
+            return new Card(rank, suit);
+        } else {
+            // Invalid card string
+            System.out.println("Invalid card: " + cardString);
+            return null;
+        }
     }
 }
