@@ -23,7 +23,7 @@ public class CardAcronyms {
         rankIndexes.put('7', 7);
         rankIndexes.put('8', 8);
         rankIndexes.put('9', 9);
-        rankIndexes.put('1', 10); // Ten
+        rankIndexes.put('T', 10); // Ten
         rankIndexes.put('J', 11);
         rankIndexes.put('Q', 12);
         rankIndexes.put('K', 13);
@@ -31,8 +31,8 @@ public class CardAcronyms {
     }
 
     public static void main(String[] args) {
-        String input1 = "KS+11H+2D+3C+5S"; // Example input with 5 cards separated by '+'
-        String input2 = "KS11H"; // Example input with 2 cards without any separator
+        String input1 = "KS+JH+2D+3C+5S"; // Example input with 5 cards separated by '+'
+        String input2 = "KSJH"; // Example input with 2 cards without any separator
 
         parseInput(input1);
         parseInput(input2);
@@ -40,6 +40,8 @@ public class CardAcronyms {
 
     // Method to parse input and process cards
     static void parseInput(String input) {
+        input = input.toUpperCase();
+
         String[] cards;
         if (input.contains("+")) {
             cards = input.split("\\+");
