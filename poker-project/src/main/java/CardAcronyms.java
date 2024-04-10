@@ -26,12 +26,12 @@ public class CardAcronyms {
         rankIndexes.put('A', 14);
     }
 
-    public static String input2 = "2D+3C+5S"; // Example input with 5 cards separated by '+'
-    public static String input1 = "KS+JH"; // Example input with 2 cards without any separator
+    public static String input2 = "TS+JS+QS"; // Example input with 5 cards separated by '+'
+    public static String input1 = "KS+AS"; // Example input with 2 cards without any separator
+    public static Card[] cardsInput1 = parseInput(input1);
+    public static Card[] cardsInput2 = parseInput(input2);
 
     public static void main(String[] args) {
-        Card[] cardsInput2 = parseInput(input2);
-        Card[] cardsInput1 = parseInput(input1);
 
         // Print out the card information
         System.out.println("Cards from input2:");

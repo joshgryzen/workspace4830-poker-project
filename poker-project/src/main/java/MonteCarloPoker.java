@@ -82,9 +82,9 @@ public class MonteCarloPoker {
     public static void main(String[] args) {
         // Example usage:
         /* From HAND */
-        List<Card> hand = Arrays.asList(new Card(13, 1), new Card(13, 2)); // Example hand
-        /* From FLOP */
-        List<Card> table = Arrays.asList(new Card(12, 0), new Card(13, 0), new Card(14, 0)); // Example community cards
+        List<Card> hand = Arrays.asList(CardAcronyms.cardsInput1);
+        // Using the cards from input2
+        List<Card> table = Arrays.asList(CardAcronyms.cardsInput2);
         /* From TURN */
         int players = 4; // Example number of players
         int trials = 100000; // Example number of Monte Carlo trials
