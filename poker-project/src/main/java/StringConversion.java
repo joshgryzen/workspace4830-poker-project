@@ -28,13 +28,15 @@ public class StringConversion extends HttpServlet {
         try {
             // Convert the string input to an integer
             int intValueHand = Integer.parseInt(userInputHand);
-
+            int intValueTurn = Integer.parseInt(userInputTurn);
+            int intValuePlayers = Integer.parseInt(userInputPlayers);
             // Now you have the integer value, you can use it in your servlet logic
             // For example, you can send it to another method, save it to a database, etc.
 
             // Example: printing the integer value
             System.out.println("Integer value: " + intValueHand);
-
+            System.out.println("Integer value: " + intValueTurn);
+            System.out.println("Integer value: " + intValuePlayers);
             // Here you can continue with your servlet logic
             // For example, forwarding the request or sending a response back to the client
         } catch (NumberFormatException e) {

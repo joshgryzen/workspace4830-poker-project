@@ -1,7 +1,7 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
-
 import javax.servlet.ServletContext;
+
 
 public class DBConnection {
    static Connection connection = null;
