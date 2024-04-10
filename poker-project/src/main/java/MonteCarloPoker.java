@@ -21,15 +21,15 @@ public class MonteCarloPoker {
     }
 
     // Method to simulate a single poker game
-    static int simulate(List<Card> hand, List<Card> table, int players) {
+    static int simulate(List<Card> Hand, List<Card> table, int players) {
         // Create a copy of the deck
         List<Card> remainingDeck = new ArrayList<>(deck);
         // Remove cards that are already dealt
-        remainingDeck.removeAll(hand);
+        remainingDeck.removeAll(Hand);
         remainingDeck.removeAll(table);
 
         // Combine player's hand and community cards
-        List<Card> fullHand = new ArrayList<>(hand);
+        List<Card> fullHand = new ArrayList<>(Hand);
         fullHand.addAll(table);
 
         // Deal cards to players
@@ -68,10 +68,10 @@ public class MonteCarloPoker {
 
     // Method to perform Monte Carlo simulation and return win ratio for a single
     // player
-    static double monteCarloWinRatio(List<Card> hand, List<Card> table, int players, int trials) {
+    static double monteCarloWinRatio(List<Card> Hand, List<Card> table, int players, int trials) {
         int wins = 0;
         for (int i = 0; i < trials; i++) {
-            int outcome = simulate(hand, table, players);
+            int outcome = simulate(Hand, table, players);
             if (outcome == 0) {
                 wins++;
             }
@@ -79,17 +79,19 @@ public class MonteCarloPoker {
         return (double) wins / trials * 100;
     }
 
-    public static void main(String[] args) {
-        // Example usage:
-        /* From HAND */
-        List<Card> hand = Arrays.asList(CardAcronyms.cardsInput1);
-        // Using the cards from input2
-        List<Card> table = Arrays.asList(CardAcronyms.cardsInput2);
-        /* From TURN */
-        int players = 4; // Example number of players
-        int trials = 100000; // Example number of Monte Carlo trials
-
-        double winRatio = monteCarloWinRatio(hand, table, players, trials);
-        System.out.println("Win Ratio: " + winRatio + "%");
-    }
+//    public static void main(String[] args) {
+//        // Example usage:
+//        /* From HAND */
+//        List<Card> hand = Arrays.asList(CardAcronyms.cardsInput1);
+//        // Using the cards from input2
+//        List<Card> table = Arrays.asList(CardAcronyms.cardsInput2);
+//        /* From TURN */
+//        int trials = 100000; // Example number of Monte Carlo trials
+//        StringConversion servlet = new StringConversion();
+//        // Get the number of players from the servlet
+//        int intValuePlayers = servlet.getIntValuePlayers();
+//
+//        double winRatio = monteCarloWinRatio(hand, table, intValuePlayers, trials);
+//        System.out.println("Win Ratio: " + winRatio + "%");
+//    }
 }

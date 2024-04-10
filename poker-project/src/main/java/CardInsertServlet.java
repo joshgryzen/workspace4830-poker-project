@@ -6,6 +6,8 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,7 +32,16 @@ public class CardInsertServlet extends HttpServlet {
       Connection connection = null;
       
       String insertSql = "INSERT INTO pokerTable (hand, flop, turn, players) VALUES (?, ?, ?, ?)";
-
+      
+      List<Card> Hand = Arrays.asList(CardAcronyms.cardsInput1);
+      // Using the cards from input2
+      List<Card> table = Arrays.asList(CardAcronyms.cardsInput2);
+      StringConversion servlet = new StringConversion();
+      // Get the number of players from the servlet
+      int intValuePlayers = servlet.getIntValuePlayers();
+      double winrate = MonteCarloPoker.monteCarloWinRatio(Hand, table, intValuePlayers, 100000);
+      
+      
       try {
           DBConnection.getDBConnection(getServletContext());
           connection = DBConnection.connection;
@@ -64,7 +75,7 @@ public class CardInsertServlet extends HttpServlet {
             "  <li><b>Flop</b>: " + flop + "\n" + //
             "  <li><b>players</b>: " + players + "\n" + //
             "  <li><b>Turn</b>: " + turn + "\n" + //
-
+            "  <li><b>Winrate</b>: " + winrate + "\n" + //
             "</ul>\n");
 
       out.println("<a href=/poker-project/home.jsp>Return Home</a> <br>");

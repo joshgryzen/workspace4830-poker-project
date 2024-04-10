@@ -4,7 +4,8 @@ import java.util.Map;
 public class CardAcronyms {
     static Map<Character, Integer> suitIndexes = new HashMap<>();
     static Map<Character, Integer> rankIndexes = new HashMap<>();
-
+    public static String input1;
+    public static String input2;
     static {
         suitIndexes.put('D', 0); // Diamonds
         suitIndexes.put('C', 1); // Clubs
@@ -26,23 +27,16 @@ public class CardAcronyms {
         rankIndexes.put('A', 14);
     }
 
-    public static String input2 = "TS+JS+QS"; // Example input with 5 cards separated by '+'
-    public static String input1 = "KS+AS"; // Example input with 2 cards without any separator
-    public static Card[] cardsInput1 = parseInput(input1);
-    public static Card[] cardsInput2 = parseInput(input2);
+    public static Card[] cardsInput1;
+    public static Card[] cardsInput2;
 
-    public static void main(String[] args) {
-
-        // Print out the card information
-        System.out.println("Cards from input2:");
-        for (Card card : cardsInput2) {
-            System.out.println("Rank: " + card.rank() + ", Suit: " + card.suit());
-        }
-
-        System.out.println("\nCards from input1:");
-        for (Card card : cardsInput1) {
-            System.out.println("Rank: " + card.rank() + ", Suit: " + card.suit());
-        }
+    // Method to set the values of input1 and input2 and parse the inputs
+    public static void setInputValues(String newInput1, String newInput2) {
+        input1 = newInput1;
+        input2 = newInput2;
+        // Parse the inputs and assign to cardsInput1 and cardsInput2
+        cardsInput1 = parseInput(input1);
+        cardsInput2 = parseInput(input2);
     }
 
     static Card[] parseInput(String input) {
