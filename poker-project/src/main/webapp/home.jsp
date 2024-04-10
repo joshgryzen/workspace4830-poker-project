@@ -42,6 +42,7 @@ $(document).ready(function() {
     // Initialize DataTable
     var table = $('#pokerTable').DataTable({
                 columnDefs: [{
+                	/*
                     targets: -1, // Target the last column (Quantity)
                     render: function(data, type, row, meta) {
                         // Render increment and decrement buttons and delete button
@@ -49,6 +50,7 @@ $(document).ready(function() {
                             '&emsp;<button data-row="' + meta.row + '">Play Test</button>';
                             
                     }
+                    */
                 }]
             });
     

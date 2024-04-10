@@ -33,7 +33,7 @@ public class CardInsertServlet extends HttpServlet {
 
       Connection connection = null;
       
-      String insertSql = "INSERT INTO pokerTable (hand, flop, turn, players) VALUES (?, ?, ?, ?)";
+      String insertSql = "INSERT INTO pokerTable (hand, flop, turn, players, stats) VALUES (?, ?, ?, ?, ?)";
        
       int intValuePlayers = servlet.getIntValuePlayers(); 
       List<Card> Hand = Arrays.asList(CardAcronyms.cardsInput1);
@@ -54,6 +54,7 @@ public class CardInsertServlet extends HttpServlet {
           insertStmt.setString(2, flop);
           insertStmt.setString(3, turn);
           insertStmt.setString(4, players);
+          insertStmt.setDouble(5, winrate);
           insertStmt.executeUpdate();
           
           
