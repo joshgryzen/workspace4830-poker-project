@@ -24,6 +24,8 @@ public class CardInsertServlet extends HttpServlet {
    }
 
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	  StringConversion servlet = new StringConversion();
+	  servlet.doPost(request, response);	   
       String hand = request.getParameter("hand");
       String flop = request.getParameter("flop");
       String turn = request.getParameter("turn");
@@ -32,17 +34,19 @@ public class CardInsertServlet extends HttpServlet {
       Connection connection = null;
       
       String insertSql = "INSERT INTO pokerTable (hand, flop, turn, players) VALUES (?, ?, ?, ?)";
-      
+       
+      int intValuePlayers = servlet.getIntValuePlayers(); 
       List<Card> Hand = Arrays.asList(CardAcronyms.cardsInput1);
       // Using the cards from input2
       List<Card> table = Arrays.asList(CardAcronyms.cardsInput2);
-      StringConversion servlet = new StringConversion();
+
       // Get the number of players from the servlet
-      int intValuePlayers = servlet.getIntValuePlayers();
+
       double winrate = MonteCarloPoker.monteCarloWinRatio(Hand, table, intValuePlayers, 100000);
       
       
       try {
+    	  
           DBConnection.getDBConnection(getServletContext());
           connection = DBConnection.connection;
     	  PreparedStatement insertStmt = connection.prepareStatement(insertSql);
