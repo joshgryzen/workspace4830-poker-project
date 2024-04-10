@@ -29,10 +29,10 @@ public class CardAcronyms {
         rankIndexes.put('K', 13);
         rankIndexes.put('A', 14);
     }
+    public static String input1 = "KS+JH+2D+3C+5S"; // Example input with 5 cards separated by '+'
+    public static String input2 = "KSJH"; // Example input with 2 cards without any separator
 
     public static void main(String[] args) {
-        String input1 = "KS+JH+2D+3C+5S"; // Example input with 5 cards separated by '+'
-        String input2 = "KSJH"; // Example input with 2 cards without any separator
 
         parseInput(input1);
         parseInput(input2);

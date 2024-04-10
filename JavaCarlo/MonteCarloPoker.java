@@ -81,11 +81,23 @@ public class MonteCarloPoker {
 
     public static void main(String[] args) {
         // Example usage:
+
         /* From HAND */
-        List<Card> hand = Arrays.asList(new Card(13, 1), new Card(13, 2)); // Example hand
+        List<Card> hand = new ArrayList<>();
+        hand.add(new Card(CardAcronyms.rankIndexes.get(CardAcronyms.input1.charAt(0)),
+                CardAcronyms.suitIndexes.get(CardAcronyms.input1.charAt(1))));
+        hand.add(new Card(CardAcronyms.rankIndexes.get(CardAcronyms.input1.charAt(2)),
+                CardAcronyms.suitIndexes.get(CardAcronyms.input1.charAt(3))));
+
         /* From FLOP */
-        List<Card> table = Arrays.asList(new Card(12, 0), new Card(13, 0), new Card(14, 0)); // Example community cards
-        /* From TURN */
+        List<Card> table = new ArrayList<>();
+        table.add(new Card(CardAcronyms.rankIndexes.get(CardAcronyms.input2.charAt(0)),
+                CardAcronyms.suitIndexes.get(CardAcronyms.input2.charAt(1))));
+        table.add(new Card(CardAcronyms.rankIndexes.get(CardAcronyms.input2.charAt(2)),
+                CardAcronyms.suitIndexes.get(CardAcronyms.input2.charAt(3))));
+        table.add(new Card(CardAcronyms.rankIndexes.get(CardAcronyms.input2.charAt(4)),
+                CardAcronyms.suitIndexes.get(CardAcronyms.input2.charAt(5))));
+
         int players = 4; // Example number of players
         int trials = 100000; // Example number of Monte Carlo trials
 
