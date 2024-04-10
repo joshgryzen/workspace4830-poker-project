@@ -13,6 +13,7 @@ def simulate(hand, table, players):
     deck = random.sample(cards,len(cards)) #shuffle the deck
     hand = hand[:]
     table = table[:]
+
     full = table + hand
     deck = list(filter(lambda x: x not in full, deck))
 

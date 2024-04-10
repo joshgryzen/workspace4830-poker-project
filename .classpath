@@ -4,5 +4,6 @@
 	<classpathentry kind="src" path="JavaCarlo"/>
 	<classpathentry kind="src" path="poker-project/src/main/java"/>
 	<classpathentry kind="lib" path="poker-project/src/main/webapp/WEB-INF/lib/mysql-connector-java-8.0.17.jar"/>
+	<classpathentry kind="src" path="Servers"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

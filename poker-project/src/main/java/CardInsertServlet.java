@@ -6,6 +6,8 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,6 +24,8 @@ public class CardInsertServlet extends HttpServlet {
    }
 
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	  StringConversion servlet = new StringConversion();
+	  servlet.doPost(request, response);	   
       String hand = request.getParameter("hand");
       String flop = request.getParameter("flop");
       String turn = request.getParameter("turn");
@@ -29,9 +33,20 @@ public class CardInsertServlet extends HttpServlet {
 
       Connection connection = null;
       
-      String insertSql = "INSERT INTO pokerTable (hand, flop, turn, players) VALUES (?, ?, ?, ?)";
+      String insertSql = "INSERT INTO pokerTable (hand, flop, turn, players, stats) VALUES (?, ?, ?, ?, ?)";
+       
+      int intValuePlayers = servlet.getIntValuePlayers(); 
+      List<Card> Hand = Arrays.asList(CardAcronyms.cardsInput1);
+      // Using the cards from input2
+      List<Card> table = Arrays.asList(CardAcronyms.cardsInput2);
 
+      // Get the number of players from the servlet
+
+      double winrate = MonteCarloPoker.monteCarloWinRatio(Hand, table, intValuePlayers, 100000);
+      
+      
       try {
+    	  
           DBConnection.getDBConnection(getServletContext());
           connection = DBConnection.connection;
     	  PreparedStatement insertStmt = connection.prepareStatement(insertSql);
@@ -39,6 +54,7 @@ public class CardInsertServlet extends HttpServlet {
           insertStmt.setString(2, flop);
           insertStmt.setString(3, turn);
           insertStmt.setString(4, players);
+          insertStmt.setDouble(5, winrate);
           insertStmt.executeUpdate();
           
           
@@ -64,7 +80,7 @@ public class CardInsertServlet extends HttpServlet {
             "  <li><b>Flop</b>: " + flop + "\n" + //
             "  <li><b>players</b>: " + players + "\n" + //
             "  <li><b>Turn</b>: " + turn + "\n" + //
-
+            "  <li><b>Winrate</b>: " + winrate + "\n" + //
             "</ul>\n");
 
       out.println("<a href=/poker-project/home.jsp>Return Home</a> <br>");
