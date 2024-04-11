@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.Collections;
 
 public class MonteCarloPoker {
 
@@ -24,6 +25,7 @@ public class MonteCarloPoker {
     static int simulate(List<Card> Hand, List<Card> table, int players) {
         // Create a copy of the deck
         List<Card> remainingDeck = new ArrayList<>(deck);
+        Collections.shuffle(remainingDeck);     
         // Remove cards that are already dealt
         remainingDeck.removeAll(Hand);
         remainingDeck.removeAll(table);
