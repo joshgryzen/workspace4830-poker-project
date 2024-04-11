@@ -25,7 +25,7 @@ public class MonteCarloPoker {
     static int simulate(List<Card> Hand, List<Card> table, int players) {
         // Create a copy of the deck
         List<Card> remainingDeck = new ArrayList<>(deck);
-        Collections.shuffle(remainingDeck);     
+        Collections.shuffle(remainingDeck);
         // Remove cards that are already dealt
         remainingDeck.removeAll(Hand);
         remainingDeck.removeAll(table);
@@ -81,19 +81,19 @@ public class MonteCarloPoker {
         return (double) wins / trials * 100;
     }
 
-//    public static void main(String[] args) {
-//        // Example usage:
-//        /* From HAND */
-//        List<Card> hand = Arrays.asList(CardAcronyms.cardsInput1);
-//        // Using the cards from input2
-//        List<Card> table = Arrays.asList(CardAcronyms.cardsInput2);
-//        /* From TURN */
-//        int trials = 100000; // Example number of Monte Carlo trials
-//        StringConversion servlet = new StringConversion();
-//        // Get the number of players from the servlet
-//        int intValuePlayers = servlet.getIntValuePlayers();
-//
-//        double winRatio = monteCarloWinRatio(hand, table, intValuePlayers, trials);
-//        System.out.println("Win Ratio: " + winRatio + "%");
-//    }
+    // public static void main(String[] args) {
+    // // Example usage:
+    // /* From HAND */
+    // List<Card> hand = Arrays.asList(CardAcronyms.cardsInput1);
+    // // Using the cards from input2
+    // List<Card> table = Arrays.asList(CardAcronyms.cardsInput2);
+    // /* From TURN */
+    // int trials = 100000; // Example number of Monte Carlo trials
+    // StringConversion servlet = new StringConversion();
+    // // Get the number of players from the servlet
+    // int intValuePlayers = servlet.getIntValuePlayers();
+    //
+    // double winRatio = monteCarloWinRatio(hand, table, intValuePlayers, trials);
+    // System.out.println("Win Ratio: " + winRatio + "%");
+    // }
 }
