@@ -29,7 +29,8 @@ public class MonteCarloPoker {
         // Remove cards that are already dealt
         remainingDeck.removeAll(Hand);
         remainingDeck.removeAll(table);
-
+        // Randomization would occur at this point, just before dealing cards to players.
+        Collections.shuffle(remainingDeck); // Shuffle the deck
         // Combine player's hand and community cards
         List<Card> fullHand = new ArrayList<>(Hand);
         fullHand.addAll(table);
@@ -42,6 +43,16 @@ public class MonteCarloPoker {
                 playerHand.add(remainingDeck.remove(0)); // Deal two cards to each player
             }
             playerHands.add(playerHand);
+        }
+        
+        //Debugging for Player Hands
+        System.out.println("Player Hands:");
+        for (int i = 0; i < players; i++) {
+            System.out.print("Player " + (i+1) + " Hand: ");
+            for (Card card : playerHands.get(i)) {
+                System.out.print(card + " "); // Assuming Card class has a meaningful toString() method
+            }
+            System.out.println();
         }
 
         // Add community cards to the table
@@ -69,6 +80,7 @@ public class MonteCarloPoker {
     }
 
     // Method to perform Monte Carlo simulation and return win ratio for a single
+    // Each trial would need to be randomized for the cards dealt to players
     // player
     static double monteCarloWinRatio(List<Card> Hand, List<Card> table, int players, int trials) {
         int wins = 0;
