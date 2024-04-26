@@ -53,6 +53,8 @@ public class MonteCarloPoker {
             for (Card card : playerHand) {
                 System.out.println(card);
             }
+         // Print the rank of the player's hand
+            System.out.println("Player " + (i + 1) + "'s hand rank: " + Poker.valueHand(playerHand.toArray(new Card[0])));
         }
         
         // Add community cards to the table
@@ -72,18 +74,23 @@ public class MonteCarloPoker {
         
         // Evaluate hands and determine winner
         int myHandRank = Poker.valueHand(fullHand.toArray(new Card[0]));
-
+        List<Card> winningHand = fullHand; // Default to my hand
         int resultState = 0; // Assume win until proven otherwise
         for (List<Card> playerHand : playerHands) {
             int opponentHandRank = Poker.valueHand(playerHand.toArray(new Card[0]));
             if (opponentHandRank > myHandRank) {
                 resultState = 1; // Lose
+                winningHand = playerHand;
                 break;
             } else if (opponentHandRank == myHandRank) {
                 resultState = 2; // Split
             }
         }
-
+        
+        System.out.println("Winning hand:");
+        for (Card card : winningHand) {
+            System.out.println(card);
+        }
         return resultState;
     }
 
@@ -98,6 +105,7 @@ public class MonteCarloPoker {
                 wins++;
             }
         }
+        
         return (double) wins / trials * 100;
     }
 
