@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Card {
     private int rank;
     private int suit;
@@ -13,5 +15,22 @@ public class Card {
 
     public int suit() {
         return suit;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Card card = (Card) obj;
+        return rank == card.rank && suit == card.suit;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(rank, suit);
     }
 }

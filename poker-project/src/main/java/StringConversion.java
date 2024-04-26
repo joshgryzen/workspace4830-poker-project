@@ -33,7 +33,7 @@ public class StringConversion extends HttpServlet {
         try {
             // Convert the string input to an integer
             int intValueTurn = Integer.parseInt(userInputTurn);
-            int intValuePlayers = Integer.parseInt(userInputPlayers);
+            intValuePlayers = Integer.parseInt(userInputPlayers);
             // Now you have the integer value, you can use it in your servlet logic
             // For example, you can send it to another method, save it to a database, etc.
 

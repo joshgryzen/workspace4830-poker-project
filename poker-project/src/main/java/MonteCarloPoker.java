@@ -25,49 +25,57 @@ public class MonteCarloPoker {
     static int simulate(List<Card> Hand, List<Card> table, int players) {
         // Create a copy of the deck
         List<Card> remainingDeck = new ArrayList<>(deck);
-        Collections.shuffle(remainingDeck);
         // Remove cards that are already dealt
-        remainingDeck.removeAll(Hand);
-        remainingDeck.removeAll(table);
+        for (Card card : Hand) {
+            remainingDeck.remove(card);
+        }
+
+        for (Card card : table) {
+            remainingDeck.remove(card);
+        }
+
         // Randomization would occur at this point, just before dealing cards to players.
         Collections.shuffle(remainingDeck); // Shuffle the deck
         // Combine player's hand and community cards
         List<Card> fullHand = new ArrayList<>(Hand);
         fullHand.addAll(table);
-
         // Deal cards to players
+        System.out.println("Number of players: " + players);
         List<List<Card>> playerHands = new ArrayList<>();
         for (int i = 0; i < players; i++) {
-            List<Card> playerHand = new ArrayList<>(table); // Include community cards
-            for (int j = 0; j < 2; j++) {
-                playerHand.add(remainingDeck.remove(0)); // Deal two cards to each player
+            List<Card> playerHand = new ArrayList<>(table);
+            while (playerHand.size() < 5) {
+                playerHand.add(remainingDeck.remove(0));
             }
             playerHands.add(playerHand);
+            // Print the contents of the player's hand
+            System.out.println("Player " + (i + 1) + "'s hand:");
+            for (Card card : playerHand) {
+                System.out.println(card);
+            }
         }
         
-        //Debugging for Player Hands
-        System.out.println("Player Hands:");
-        for (int i = 0; i < players; i++) {
-            System.out.print("Player " + (i+1) + " Hand: ");
-            for (Card card : playerHands.get(i)) {
-                System.out.print(card + " "); // Assuming Card class has a meaningful toString() method
-            }
-            System.out.println();
-        }
-
         // Add community cards to the table
+        //No idea what this is used for, but seems like we could use it for randomizing community cards
+        //if we wanted to simulate the game
         List<Card> fullBoard = new ArrayList<>(table);
         while (fullBoard.size() < 5) {
             fullBoard.add(remainingDeck.remove(0));
         }
+//	     // Add community cards to the table
+//	     // Print out all the cards in the fullBoard for debugging purposes
+//	     System.out.println("Community cards:");
+//	     for (Card card : fullBoard) {
+//	         System.out.println(card);
+//	     }
 
+        
         // Evaluate hands and determine winner
         int myHandRank = Poker.valueHand(fullHand.toArray(new Card[0]));
 
         int resultState = 0; // Assume win until proven otherwise
         for (List<Card> playerHand : playerHands) {
             int opponentHandRank = Poker.valueHand(playerHand.toArray(new Card[0]));
-
             if (opponentHandRank > myHandRank) {
                 resultState = 1; // Lose
                 break;
