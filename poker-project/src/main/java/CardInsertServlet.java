@@ -42,7 +42,7 @@ public class CardInsertServlet extends HttpServlet {
 
       // Get the number of players from the servlet
 
-      double winrate = MonteCarloPoker.monteCarloWinRatio(Hand, table, intValuePlayers, 100000);
+      double winrate = MonteCarloPoker.monteCarloWinRatio(Hand, table, intValuePlayers, 10000);
       
       
       try {
