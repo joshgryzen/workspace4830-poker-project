@@ -140,27 +140,44 @@
     </div>
 
     <div class="container">
-      <!-- Enters Username: ID = uname -->
-      <label for="uname" style="color: white"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="uname" required />
-
-      <!-- Enters Password: ID = psw -->
-      <label for="psw" style="color: white"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required />
-
-      <button
-        type="submit"
-        style="
-          padding: 10px 80px;
-          font-size: 20px;
-          background-color: #2ecc71;
-          color: white;
-        "
-      >
-        Login
-      </button>
+    	<form id ="loginForm" action="/MyServletLogIn?action=login" method="post">
+	      <!-- Enters Username: ID = uname -->
+	      <label for="uname" style="color: white"><b>Username</b></label>
+	      <input type="text" placeholder="Enter Username" name="uname" id="uname" required  />
+	
+	      <!-- Enters Password: ID = psw -->
+	      <label for="psw" style="color: white"><b>Password</b></label>
+	      <input type="password" placeholder="Enter Password" name="psw" id="psw" required />
+	
+	      <button
+	        type="submit"
+	        name="loginButton"
+	        onclick="login()"
+	        style="
+	          padding: 10px 80px;
+	          font-size: 20px;
+	          background-color: #2ecc71;
+	          color: white;
+	        "
+	      >
+	        Login
+	      </button>
+		</form>
     </div>
 
     <nav><a href="/poker-project/home.jsp">Temp Home Link</a> <br /></nav>
+<script>
+	function login(){
+		//Get form information from usernmae and password fields
+		var username = document.getElementById("uname").value;
+		var password = document.getElementById("psw").value;	
+		//Make it an action so to be accepted by servlet
+		document.getElementById("loginForm").setAttribute("action","/poker-project/MyServletLogIn?action=login");
+		//Send form to servlet
+		document.getElementById("loginForm").submit();
+	
+	}
+</script>
+
   </body>
 </html>
