@@ -49,8 +49,8 @@ public class MyServletLogIn extends HttpServlet {
     private void handleLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // Debugging statements before executing login logic
         System.out.println("Executing login logic...");
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+        String username = request.getParameter("uname");
+        String password = request.getParameter("psw");
         // Debugging statement before using the database connection
         System.out.println("Attempting to use database connection...");
         // Get the connection instance from MyServletDB
@@ -74,6 +74,7 @@ public class MyServletLogIn extends HttpServlet {
                     ResultSet resultSet = statement.executeQuery();
                     if (resultSet.next()) {
                         // User exists, login successful
+                    	response.sendRedirect("home.jsp");
                         response.getWriter().println("Login successful!<br>");
                     } else {
                         // User does not exist or wrong password
@@ -99,8 +100,8 @@ public class MyServletLogIn extends HttpServlet {
         // Print to indicate the method is invoked
         System.out.println("Handling signup action...");
 
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+        String username = request.getParameter("new_uname");
+        String password = request.getParameter("new_psw");
 
         // Get the connection instance from MyServletDB
         Connection connection = DBConnection.connection;
