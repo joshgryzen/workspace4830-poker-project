@@ -54,7 +54,8 @@ public class MonteCarloPoker {
             // Print the contents of the player's hand
             //System.out.println("Player " + (i + 1) + "'s hand:");
             List<Object> bestResult = evaluateBestHand(playerHand);
-            List<Card> playerBestHand = (List<Card>) bestResult.get(0);
+            @SuppressWarnings("unchecked")
+			List<Card> playerBestHand = (List<Card>) bestResult.get(0);
             int playerBestRank = (int) bestResult.get(1);
             for (Card card : playerBestHand) {
                 System.out.println("Rank: " + card.rank + " Suit: " + card.suit);
@@ -115,7 +116,6 @@ public class MonteCarloPoker {
                 wins++;
             }
         }
-        
         return (double) wins / trials * 100;
     }
     
@@ -148,24 +148,25 @@ public class MonteCarloPoker {
         result.add(bestRank);
         return result;
     }
-    public static void main(String[] args) {
-    // // Example usage:
-    // /* From HAND */
-    List<Card> hand = new ArrayList<>();
-    hand.add(new Card(10,0));
-    hand.add(new Card(10,1));
-    // // Using the cards from input2
-    List<Card> table = new ArrayList<>();
-    table.add(new Card(14,2));
-    table.add(new Card(14,0));
-    table.add(new Card(14,1));
-    // /* From TURN */
-    int trials = 10; // Example number of Monte Carlo trials
-    
-    // // Get the number of players from the servlet
-    int intValuePlayers = 3;
-    //
-    double winRatio = monteCarloWinRatio(hand, table, intValuePlayers, trials);
-    System.out.println("Win Ratio: " + winRatio + "%");
-    
-}}
+//    public static void main(String[] args) {
+//    // // Example usage:
+//    // /* From HAND */
+//    List<Card> hand = new ArrayList<>();
+//    hand.add(new Card(10,0));
+//    hand.add(new Card(10,1));
+//    // // Using the cards from input2
+//    List<Card> table = new ArrayList<>();
+//    table.add(new Card(14,2));
+//    table.add(new Card(14,0));
+//    table.add(new Card(14,1));
+//    // /* From TURN */
+//    int trials = 10; // Example number of Monte Carlo trials
+//    
+//    // // Get the number of players from the servlet
+//    int intValuePlayers = 3;
+//    //
+//    double winRatio = monteCarloWinRatio(hand, table, intValuePlayers, trials);
+//    System.out.println("Win Ratio: " + winRatio + "%");
+//    
+//}
+    }

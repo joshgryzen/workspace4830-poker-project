@@ -6,8 +6,10 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javax.servlet.ServletContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,15 +36,20 @@ public class CardInsertServlet extends HttpServlet {
       Connection connection = null;
       
       String insertSql = "INSERT INTO pokerTable (hand, flop, turn, players, stats) VALUES (?, ?, ?, ?, ?)";
-       
+      // Get the number of players from the servlet       
       int intValuePlayers = servlet.getIntValuePlayers(); 
-      List<Card> Hand = Arrays.asList(CardAcronyms.cardsInput1);
-      // Using the cards from input2
-      List<Card> table = Arrays.asList(CardAcronyms.cardsInput2);
+      
+      
+      // Populate cardsInput1 and cardsInput2 in CardAcronyms class
+      CardAcronyms.setInputValues(hand, flop);
 
-      // Get the number of players from the servlet
-
-      double winrate = MonteCarloPoker.monteCarloWinRatio(Hand, table, intValuePlayers, 5);
+      // Convert cardsInput1 array to a list of Card objects
+      List<Card> Hand = new ArrayList<>(Arrays.asList(CardAcronyms.cardsInput1));
+      
+      // Convert cardsInput2 array to a list of Card objects
+      List<Card> table = new ArrayList<>(Arrays.asList(CardAcronyms.cardsInput2));
+      
+      double winrate = MonteCarloPoker.monteCarloWinRatio(Hand, table, intValuePlayers, 10000);
       
       
       try {

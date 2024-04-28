@@ -57,7 +57,17 @@ public class CardAcronyms {
 
         int rank = rankIndexes.getOrDefault(rankChar, -1);
         int suit = suitIndexes.getOrDefault(suitChar, -1);
+        // Check if the cardString is null or empty
+        if (cardString == null || cardString.isEmpty()) {
+            System.out.println("Invalid card: " + cardString);
+            return null;
+        }
 
+        // Check if the cardString has at least two characters
+        if (cardString.length() < 2) {
+            System.out.println("Invalid card: " + cardString);
+            return null;
+        }
         if (rank != -1 && suit != -1) {
             return new Card(rank, suit);
         } else {
@@ -66,4 +76,6 @@ public class CardAcronyms {
             return null;
         }
     }
+
+
 }
