@@ -1,0 +1,121 @@
+<html>
+<head>
+<style>
+
+body {
+    margin: 0;
+    background-color: rgb(255, 255, 255);
+    margin: 0;
+    height: 100vh; /* Ensure body takes up full viewport height */
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* Align items to the bottom */
+}
+
+.card_table {
+    position: absolute;
+    display: block;
+    box-sizing: border-box;
+    top: 30px;
+    left: 20px;
+
+    width: calc(100% - 40px);
+    height: calc(100vh - 60px);
+    max-height: 100%;
+    max-width: 100%;
+   
+    background: rgb(8,128,6);
+    background: radial-gradient(circle, rgba(8,128,6,1) 0%, rgba(38,52,38,1) 100%);
+    border: 25px solid #B87333;
+    border-radius: 10000px;
+    outline: 15px solid black;
+    box-shadow: 0 0 100px black;
+}
+
+section {
+    position: absolute;
+    width: auto;
+    padding:50px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    	 	 
+}
+
+label {
+    color: white;
+
+}
+
+input[type="submit"] {
+    margin-top: -10px; /* Add some space above the submit button */
+
+}
+
+
+.home-button {
+    margin-top: -10px;
+    margin-right: 10px;
+}
+
+.deck {
+    width: 50%; 
+    height: auto; 
+    position: absolute;
+
+    
+    bottom: 150%; /* Add some space below the image */
+    position: absolute; /* Set position absolute for the image */
+     /* Adjust top position as needed */
+    right: 25%; /* Adjust right position as needed */
+    
+    
+}
+        /* Style for clickable rectangles */
+.rectangleHand {
+            width: 63px;
+            height: 86px;
+            background-color: rgba(255, 255, 255, 0.5); /* Adjust opacity as needed */
+            margin: 10px; /* Add some margin between rectangles */
+            cursor: pointer; /* Change cursor to pointer on hover */
+            display: inline-block; /* Display rectangles inline */
+}
+</style>
+</head>
+<body>
+
+<div class="card_table" id=card_table>
+
+</div>
+
+<section>
+	<form action="insertCards" method="POST">
+        <div>
+            <!-- Clickable rectangles -->
+            <div class="rectangleHand" onclick="handleRectangleClick(1)"></div>
+            <div class="rectangleHand" onclick="handleRectangleClick(2)"></div>
+        </div>
+        <input type="button" class="home-button" value="Home" onclick="window.location.href='home.html';">      
+        <input type="submit" value="Submit"/>
+    </form>
+
+</section>
+
+
+
+
+<script>
+    function handleRectangleClick(rectangleNumber) {
+        // Handle the click event for each rectangle
+        console.log("Rectangle " + rectangleNumber + " clicked!");
+        // You can add your logic here for each rectangle click
+    }
+</script>
+
+
+
+
+
+</body>
+</html>
