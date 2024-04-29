@@ -136,27 +136,38 @@ span.psw {
 
   <div class="container">
   
-
-    <!-- Enters Username: ID = new_uname -->
-    <label for="new_uname"  style="color: white;"><b>Enter Your Username</b></label>
-    <input type="text" placeholder="Enter Username" name="uname" required>
-
-
-    <!-- Enters Password: ID = new_psw -->
-	<label for="new_psw" style="color: white;"><b>Enter Your Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
+  	<form id ="signupForm" action="/MyServletLogIn?action=signup" method="post">
+	    <!-- Enters Username: ID = new_uname -->
+	    <label for="new_uname"  style="color: white;"><b>Enter Your Username</b></label>
+	    <input type="text" placeholder="Enter Username" id="new_uname" name="new_uname" required>
+	
+	
+	    <!-- Enters Password: ID = new_psw -->
+		<label for="new_psw" style="color: white;"><b>Enter Your Password</b></label>
+	    <input type="password" placeholder="Enter Password" id="new_psw"name="new_psw" required>
     
 
+	
+		<button type="submit" name="signupbutton" onclick="signup()" style="background-color: #2ECC71; font-size: 20px;">Create User</button>
 
-	<button type="submit" style="background-color: #2ECC71; font-size: 20px;">Create User</button>
-
-    
+    </form>
  
 
   </div>
 
-    
+<script>
+	function signup(){
+		//Get form information from usernmae and password fields
+		var username = document.getElementById("new_uname").value;
+		var password = document.getElementById("new_psw").value;	
+		//Make it an action so to be accepted by servlet
+		document.getElementById("signupForm").setAttribute("action","/poker-project/MyServletLogIn?action=signup");
+		//Send form to servlet
+		document.getElementById("signupForm").submit();
+	
+	}
+</script>   
 
 
-</body>
+	</body>
 </html>
