@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 //Second test, can we navigate from the home page to the insert cards page?
-public class LoginTests {
+public class SignupTests {
 	private WebDriver driver;
 	private String baseUrl = "http://ec2-18-225-5-151.us-east-2.compute.amazonaws.com:8080/poker-project/home.jsp";
 	private String signupUrl = "http://ec2-18-225-5-151.us-east-2.compute.amazonaws.com:8080/poker-project/signUpPage.html";
