@@ -64,21 +64,21 @@ input[type="submit"] {
 
       /* Style for clickable rectangles */
 .rectangleHand {
-            width: 63px;
-            height: 86px;
-            background-color: rgba(255, 255, 255, 0.5); /* Adjust opacity as needed */
-            margin: 10px; /* Add some margin between rectangles */
-            cursor: pointer; /* Change cursor to pointer on hover */
-            display: inline-block; /* Display rectangles inline */
+    width: 63px;
+    height: 86px;
+    background-color: rgba(255, 255, 255, 0.5); /* Adjust opacity as needed */
+    margin: 10px; /* Add some margin between rectangles */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    display: inline-block; /* Display rectangles inline */
 }
       /* Style for clickable rectangles */
 .rectangleFlop {
-            width: 63px;
-            height: 86px;
-            background-color: rgba(255, 255, 255, 0.5); /* Adjust opacity as needed */
-            margin: 10px; /* Add some margin between rectangles */
-            cursor: pointer; /* Change cursor to pointer on hover */
-            display: inline-block; /* Display rectangles inline */
+    width: 63px;
+    height: 86px;
+    background-color: rgba(255, 255, 255, 0.5); /* Adjust opacity as needed */
+    margin: 10px; /* Add some margin between rectangles */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    display: inline-block; /* Display rectangles inline */
 }
 .modal {
     display: none; /* Hidden by default */
@@ -126,7 +126,41 @@ input[type="submit"] {
     height: 86; /* Maintain aspect ratio */
     margin: 3px; /* Add some margin between card images */
     box-sizing: border-box; /* Include border in dimensions */
-    border: 2px solid transparent; /* Initially transparent border */
+    border: 4px solid transparent; /* Initially transparent border */
+}
+/* Add border styles for selected cards */
+.card-image.selected {
+    border-width: 4px;
+    border-style: solid;
+}
+
+/* Border color for cards selected by 'hand' group */
+.card-image.selected.hand {
+    border-color: rgb(87, 224, 87);
+}
+
+/* Border color for cards selected by 'flop' group */
+.card-image.selected.flop {
+    border-color: yellow;
+}
+.card-image.grayed-out {
+    opacity: 0.5;
+    pointer-events: none;
+}
+.playerCounter {
+    position: absolute;
+    top: 240px; /* Adjust top position as needed */
+    right: 20px; /* Adjust right position as needed */
+    background-color: white; /* Set background color to white */
+    padding: 5px 10px; /* Add padding for better appearance */
+    border-radius: 5px; /* Add border-radius for rounded corners */
+}
+
+.playerLabel {
+    margin-bottom: 5px; /* Add margin between label and count */
+}
+.playerCounter button {
+    margin: 0 5px; /* Adjust margin between buttons as needed */
 }
 
 
@@ -139,19 +173,26 @@ input[type="submit"] {
 <section>
     <form action="insertPlayerHand" method="POST">
         <div class="rectangle-container">
-            <!-- Clickable rectangles -->
-            <div class="rectangleFlop" onclick="handleRectangleClick(3)"></div>
-            <div class="rectangleFlop" onclick="handleRectangleClick(4)"></div>
-            <div class="rectangleFlop" onclick="handleRectangleClick(5)"></div>
-            <div class="rectangleFlop" onclick="handleRectangleClick(6)"></div>
-            <div class="rectangleFlop" onclick="handleRectangleClick(7)"></div>
+            <!-- Clickable rectangles for flop -->
+            <div class="rectangleFlop" id="rectangleFlop3" onclick="handleCardSelection('flop', 'rectangleFlop3')"></div>
+            <div class="rectangleFlop" id="rectangleFlop4" onclick="handleCardSelection('flop', 'rectangleFlop4')"></div>
+            <div class="rectangleFlop" id="rectangleFlop5" onclick="handleCardSelection('flop', 'rectangleFlop5')"></div>
+            <div class="rectangleFlop" id="rectangleFlop6" onclick="handleCardSelection('flop', 'rectangleFlop6')"></div>
+            <div class="rectangleFlop" id="rectangleFlop7" onclick="handleCardSelection('flop', 'rectangleFlop7')"></div>                       
         </div>
-        <!-- New rectangles added above the current ones -->
+        <!-- New rectangles for player hand -->
         <div class="rectangle-container">
-            <div class="rectangleHand" onclick="handleRectangleClick(1)"></div>
-            <div class="rectangleHand" onclick="handleRectangleClick(2)"></div>
+            <div class="rectangleHand" id="rectangleHand1" onclick="handleCardSelection('hand', 'rectangleHand1')"></div>
+            <div class="rectangleHand" id="rectangleHand2" onclick="handleCardSelection('hand', 'rectangleHand2')"></div>
         </div>
-        <input type="button" class="home-button" value="Home" onclick="window.location.href='home.html';">      
+        <input type="button" class="home-button" value="Home" onclick="window.location.href='home.jsp';">   
+        <!-- Counter button for number of players -->
+        <div class="playerCounter" id="playerCounter">
+            <div class="playerLabel">Players:</div>
+            <button type="button" onclick="decrementPlayerCount()">-</button>
+            <span id="playerCount">0</span>
+            <button type="button" onclick="incrementPlayerCount()">+</button>
+        </div>                
         <input type="submit" value="Submit"/>
     </form>
 </section>
@@ -165,138 +206,245 @@ input[type="submit"] {
 <script>
     // Get the modal
     var modal = document.getElementById("myModal");
-
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
-
-    // Define a variable to track selected cards
-    var selectedCards = [];
-
-
-
-    function updateCardRectangles() {
-        var rectangles = document.querySelectorAll(".rectangleFlop");
-        selectedCards.forEach(function(cardSrc, index) {
-            if (index < 5) {
-                rectangles[index].style.backgroundImage = "url('" + cardSrc + "')";
-                rectangles[index].style.backgroundSize = "cover";
-                rectangles[index].style.backgroundPosition = "center";
-            }
-        });
-    }
-
-
-    function toggleCardSelection(cardImage) {
-        var selectedIndex = selectedCards.indexOf(cardImage.src);
-        if (selectedIndex !== -1) {
-            selectedCards.splice(selectedIndex, 1);
-            cardImage.style.border = ""; // Reset border
-        } else {
-            if (selectedCards.length < 5) { // Limit selection to 5 cards
-                selectedCards.push(cardImage.src);
-                cardImage.style.border = "2px solid yellow"; // Set border to yellow
-            }
-        }
-        
-        // Update rectangles to match selected cards
-        updateCardRectangles();
-    }
-
-
-
-
-    // Function to update card appearance based on selection and update rectangles
-    function updateCardAppearance() {
-        var cardImages = document.querySelectorAll(".card-image");
-        cardImages.forEach(function(cardImage) {
-            var cardSrc = cardImage.src;
-            var isSelected = selectedCards.includes(cardSrc);
-            if (isSelected) {
-                cardImage.style.opacity = "0.5"; // Set opacity to grey for selected cards
-            } else {
-                cardImage.style.opacity = ""; // Reset opacity for unselected cards
-            }
-
-            // Update corresponding rectangle for selected cards
-            var rectangles = document.querySelectorAll(".rectangleFlop");
-            rectangles.forEach(function(rectangle, index) {
-                if (selectedCards[index] === cardSrc) {
-                    rectangle.style.backgroundColor = "yellow"; // Highlight corresponding rectangle
-                } else {
-                    rectangle.style.backgroundColor = ""; // Reset color for other rectangles
-                }
-            });
-        });
-    }
-
-
-
     // Function to populate modal with card images
-    function populateModalWithCardImages(rectangleClicked) {
+    function populateModalWithCardImages() {
         var modalContent = document.getElementById("modalContent");
         var suits = ['c', 'd', 's', 'h']; // Array of suits
-
         // Clear modal content before populating
         modalContent.innerHTML = "";
-
         // Loop through each suit
         suits.forEach(function(suit) {
             // Create a div for each suit
             var suitDiv = document.createElement("div");
             suitDiv.className = "suit-container";
-
             // Loop through card values (2-14) for the current suit
             for (var i = 2; i <= 14; i++) {
+                // Convert numeric card values to appropriate file names
+                var cardValue = i;
+                if (i === 10) cardValue = 'T';
+                else if (i === 11) cardValue = 'J';
+                else if (i === 12) cardValue = 'Q';
+                else if (i === 13) cardValue = 'K';
+                else if (i === 14) cardValue = 'A';
                 // Create image element for the current card
                 var cardImage = document.createElement("img");
-                cardImage.src = "Cards/" + i + suit + ".png";
+                cardImage.src = "Cards/" + cardValue + suit + ".png";
                 cardImage.className = "card-image"; // Add class for styling
-
-                // Add event listener for card selection
-                cardImage.addEventListener("click", function() {
-                    toggleCardSelection(this);
-                });
-
                 // Append the card image to the suit div
                 suitDiv.appendChild(cardImage);
             }
-
             // Append the suit div to the modal content
             modalContent.appendChild(suitDiv);
         });
+    }
 
-        // Update card appearance based on selection
-        if (rectangleClicked >= 3 && rectangleClicked <= 7) {
-            updateCardAppearance();
+    var selectionMode = "hand"
+    var selectedHandCards = [];
+    var selectedFlopCards = [];
+    // Function to toggle selection mode
+    function toggleSelectionMode(mode) {
+        selectionMode = mode;
+        updateSelectionIndicators(); // Update visual indicators for selection mode
+    }
+    function updateSelectionIndicators() {
+        var handRectangles = document.querySelectorAll('.rectangleHand');
+        var flopRectangles = document.querySelectorAll('.rectangleFlop');
+        var handCardImages = document.querySelectorAll('.card-image.hand');
+        var flopCardImages = document.querySelectorAll('.card-image.flop');
+
+        // Remove existing selection indicators and grayed-out state
+        handRectangles.forEach(function(rectangle) {
+            rectangle.classList.remove('selected');
+        });
+        flopRectangles.forEach(function(rectangle) {
+            rectangle.classList.remove('selected');
+        });
+        handCardImages.forEach(function(cardImage) {
+            cardImage.classList.remove('grayed-out');
+        });
+        flopCardImages.forEach(function(cardImage) {
+            cardImage.classList.remove('grayed-out');
+        });
+
+        // Add selection indicator based on current selection mode
+        if (selectionMode === 'hand') {
+            handRectangles.forEach(function(rectangle) {
+                rectangle.classList.add('selected');
+            });
+            flopCardImages.forEach(function(cardImage) {
+                if (!cardImage.classList.contains('hand')) {
+                    cardImage.classList.add('grayed-out');
+                }
+            });
+        } else if (selectionMode === 'flop') {
+            flopRectangles.forEach(function(rectangle) {
+                rectangle.classList.add('selected');
+            });
+            handCardImages.forEach(function(cardImage) {
+                if (!cardImage.classList.contains('flop')) {
+                    cardImage.classList.add('grayed-out');
+                }
+            });
         }
     }
 
-
-    // Function to handle rectangle clicks
-    function handleRectangleClick(rectangleNumber) {
-        console.log("Rectangle " + rectangleNumber + " clicked!");
+    // Function to handle card selection
+    function handleCardSelection(group, id) {
+        // Implement your logic for card selection here
+        console.log("Rectangle clicked: " + id);
+        // Toggle selection mode based on the clicked rectangle
+        toggleSelectionMode(group);
         modal.style.display = "block";
+    }
+    // Function to update the rectangle images for the "hand" group
+    function updateHandRectangleImages() {
+        const handRectangles = document.querySelectorAll('.rectangleHand');
+        handRectangles.forEach((rectangle, index) => {
+            const cardSrc = selectedHandCards[index];
+            if (cardSrc) {
+            rectangle.style.backgroundImage = `url(${cardSrc})`;
+            rectangle.style.backgroundSize = 'cover';
+            } else {
+            rectangle.style.backgroundImage = 'none';
+            }
+        });
+        }
 
-        // Populate modal with card images
-        populateModalWithCardImages();
+    // Function to update the rectangle images for the "flop" group
+    function updateFlopRectangleImages() {
+        const flopRectangles = document.querySelectorAll('.rectangleFlop');
+        flopRectangles.forEach((rectangle, index) => {
+            const cardSrc = selectedFlopCards[index];
+            if (cardSrc) {
+            rectangle.style.backgroundImage = `url(${cardSrc})`;
+            rectangle.style.backgroundSize = 'cover';
+            } else {
+            rectangle.style.backgroundImage = 'none';
+            }
+        });
+        }
+    function handleModalCardSelection(cardImage) {
+        const group = selectionMode === 'hand' ? 'hand' : 'flop';
+        let selectedCards = group === 'hand' ? selectedHandCards : selectedFlopCards;
+        const maxSelection = group === 'hand' ? 2 : 5;
+
+        if (cardImage.classList.contains('selected')) {
+            // Deselect the card
+            cardImage.classList.remove('selected', group);
+            selectedCards = selectedCards.filter(card => card !== cardImage.src);
+        } else {
+            // Check if the maximum selection limit is reached
+            if (selectedCards.length >= maxSelection) {
+                alert(`You can only select up to ${maxSelection} cards for ${group} mode.`);
+                return;
+            }
+
+            // Select the card and add appropriate class based on the selection mode
+            cardImage.classList.add('selected', group);
+            selectedCards.push(cardImage.src);
+        }
+
+        if (group === 'hand') {
+            selectedHandCards = selectedCards;
+            updateHandRectangleImages(); // Update rectangle images for the "hand" group
+        } else {
+            selectedFlopCards = selectedCards;
+            updateFlopRectangleImages(); // Update rectangle images for the "flop" group
+        }
+        
     }
 
 
-    
+    // Event listener for card clicks within the modal
+    document.getElementById("modalContent").addEventListener('click', function(event) {
+        if (event.target && event.target.nodeName == "IMG") {
+            handleModalCardSelection(event.target);
+        }
+    });
+
+    // Toggle selection mode when a rectangle is clicked
+    document.querySelectorAll('.rectangleFlop').forEach(function(rectangle) {
+        rectangle.addEventListener('click', function() {
+            handleCardSelection('flop', rectangle.id);
+            updateSelectionIndicators(); // Update visual feedback for selection mode
+        });
+    });
+
+    document.querySelectorAll('.rectangleHand').forEach(function(rectangle) {
+        rectangle.addEventListener('click', function() {
+            handleCardSelection('hand', rectangle.id);
+            updateSelectionIndicators(); // Update visual feedback for selection mode
+        });
+    });
+    // Event listener for the form submit
+// Event listener for the form submit
+    document.querySelector('form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission behavior
+
+        // Get the string representations for selected cards
+        const selectedCards = getCardStringRepresentations(selectedHandCards, selectedFlopCards);
+        console.log(selectedCards.hand);
+        console.log(selectedCards.flop);
+        console.log(playerCount);
+
+        // You can further process the data here, such as sending it to a server
+    });
+
+    // Call the populateModalWithCardImages() function when the window has finished loading
+    window.onload = function() {
+        populateModalWithCardImages();
+    };
+
     // When the user clicks on <span> (x) or outside of the modal, close it
     span.onclick = function() {
         modal.style.display = "none";
-        // Clear selected cards array when modal is closed
-        selectedCards = [];
     }
 
     window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none";
-            // Clear selected cards array when modal is closed
-            selectedCards = [];
         }
     }
+    var playerCount = 0;
+    // Function to increment player count
+    function incrementPlayerCount() {
+        playerCount++;
+        updatePlayerCountDisplay();
+    }
+
+    // Function to decrement player count
+    function decrementPlayerCount() {
+        if (playerCount > 0) {
+            playerCount--;
+            updatePlayerCountDisplay();
+        }
+    }
+
+    // Function to update player count display
+    function updatePlayerCountDisplay() {
+        document.getElementById("playerCount").innerText = playerCount;
+    }
+    function getCardStringRepresentations(selectedHandCards, selectedFlopCards) {
+        // Map selected hand cards to extract card names
+        const handCardStrings = selectedHandCards.map(card => card.substring(card.lastIndexOf('/') + 1, card.length - 4));
+
+        // Map selected flop cards to extract card names
+        const flopCardStrings = selectedFlopCards.map(card => card.substring(card.lastIndexOf('/') + 1, card.length - 4));
+
+        // Join the arrays with '+' to create the final string representation
+        const handString = handCardStrings.join('+');
+        const flopString = flopCardStrings.join('+');
+
+        return {
+            hand: handString,
+            flop: flopString
+        };
+    }
+
+
+
 </script>
 </body>
 </html>
