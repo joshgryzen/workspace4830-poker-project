@@ -162,22 +162,6 @@ input[type="submit"] {
 .playerCounter button {
     margin: 0 5px; /* Adjust margin between buttons as needed */
 }
-.turnCounter {
-	position: absolute;
-	top: 240px; /* Adjust top position as needed */
-	left: 20px; /* Adjust left position as needed */
-	background-color: white; /* Set background color to white */
-	padding: 5px 10px; /* Add padding for better appearance */
-	border-radius: 5px; /* Add border-radius for rounded corners */
-}
-
-.turnLabel {
-	margin-bottom: 5px; /* Add margin between label and count */
-}
-.turnCounter button {
-	margin: 0 5px; /* Adjust margin between buttons as needed */
-}
-
 
 
 </style>
@@ -187,7 +171,7 @@ input[type="submit"] {
 <div class="card_table" id=card_table>
 </div>
 <section>
-    <form id ="cardinsert" action="CardInsertServlet" method="POST">
+    <form action="insertPlayerHand" method="POST">
         <div class="rectangle-container">
             <!-- Clickable rectangles for flop -->
             <div class="rectangleFlop" id="rectangleFlop3" onclick="handleCardSelection('flop', 'rectangleFlop3')"></div>
@@ -201,12 +185,6 @@ input[type="submit"] {
             <div class="rectangleHand" id="rectangleHand1" onclick="handleCardSelection('hand', 'rectangleHand1')"></div>
             <div class="rectangleHand" id="rectangleHand2" onclick="handleCardSelection('hand', 'rectangleHand2')"></div>
         </div>
-        <div class="turnCounter" id="turnCounter">
-        <div class="turnLabel">Turn:</div>
-        <button type="button" onclick="decrementTurnCount()">-</button>
-        <span id="turnCount">0</span>
-        <button type="button" onclick="incrementTurnCount()">+</button>
-   		</div>
         <input type="button" class="home-button" value="Home" onclick="window.location.href='home.jsp';">   
         <!-- Counter button for number of players -->
         <div class="playerCounter" id="playerCounter">
@@ -214,11 +192,7 @@ input[type="submit"] {
             <button type="button" onclick="decrementPlayerCount()">-</button>
             <span id="playerCount">0</span>
             <button type="button" onclick="incrementPlayerCount()">+</button>
-        </div>    
-        <input type="hidden" id="playerNumberInput" name="playerNumber" value="">
-        <input type="hidden" id="turnNumberInput" name="turnNumber" value="">
-        <input type="hidden" id="flopInput" name="flop" value="">
-        <input type="hidden" id="handInput" name="hand" value="">          
+        </div>                
         <input type="submit" value="Submit"/>
     </form>
 </section>
@@ -425,16 +399,6 @@ input[type="submit"] {
         event.preventDefault(); // Prevent default form submission behavior
 
         // Get the string representations for selected cards
-       // Retrieve data from the form
-	    const formData = getDataFromForm();
-	
-	    // Populate hidden input fields in the form with the retrieved data
-	    document.getElementById("playerNumberInput").value = formData.playerNumber;
-	    document.getElementById("turnNumberInput").value = formData.turnNumber;
-	    document.getElementById("flopInput").value = formData.flop;
-	    document.getElementById("handInput").value = formData.hand;     
-        
-        
         const selectedCards = getCardStringRepresentations(selectedHandCards, selectedFlopCards);
         console.log(selectedCards.hand);
         console.log(selectedCards.flop);
@@ -477,7 +441,6 @@ input[type="submit"] {
     function updatePlayerCountDisplay() {
         document.getElementById("playerCount").innerText = playerCount;
     }
-    
     function getCardStringRepresentations(selectedHandCards, selectedFlopCards) {
         // Map selected hand cards to extract card names
         const handCardStrings = selectedHandCards.map(card => card.substring(card.lastIndexOf('/') + 1, card.length - 4));
@@ -494,56 +457,8 @@ input[type="submit"] {
             flop: flopString
         };
     }
-    var turnCount = 0;
-    // Function to increment turn count
-    function incrementTurnCount() {
-        turnCount++;
-        updateTurnCountDisplay();
-    }
 
-    // Function to decrement turn count
-    function decrementTurnCount() {
-        if (turnCount > 0) {
-            turnCount--;
-            updateTurnCountDisplay();
-        }
-    }
 
-    // Function to update turn count display
-    function updateTurnCountDisplay() {
-        document.getElementById("turnCount").innerText = turnCount;
-    }
-
-    function getDataFromForm() {
-        // Retrieve player number
-        const playerNumber = parseInt(document.getElementById("playerCount").innerText);
-
-        // Retrieve turn number
-        const turnNumber = parseInt(document.getElementById("turnCount").innerText);
-
-        // Retrieve selected flop cards
-        const selectedFlopCards = [];
-        document.querySelectorAll('.card-image.selected.flop').forEach(function(cardImage) {
-            selectedFlopCards.push(cardImage.src);
-        });
-
-        // Retrieve selected hand cards
-        const selectedHandCards = [];
-        document.querySelectorAll('.card-image.selected.hand').forEach(function(cardImage) {
-            selectedHandCards.push(cardImage.src);
-        });
-
-        // Use the existing function to get string representations of hand and flop cards
-        const cardStrings = getCardStringRepresentations(selectedHandCards, selectedFlopCards);
-
-        // Return the gathered data as an object
-        return {
-            playerNumber: playerNumber,
-            turnNumber: turnNumber,
-            flop: cardStrings.flop,
-            hand: cardStrings.hand
-        };
-    }
 
 </script>
 </body>

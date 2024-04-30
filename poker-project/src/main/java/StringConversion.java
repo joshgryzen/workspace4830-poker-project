@@ -23,8 +23,8 @@ public class StringConversion extends HttpServlet {
         // Get the string input from the HTML form
         String userInputHand = request.getParameter("hand");
         String userInputFlop = request.getParameter("flop");
-        String userInputTurn = request.getParameter("turnNumber");
-        String userInputPlayers = request.getParameter("playerNumber");
+        String userInputTurn = request.getParameter("turn");
+        String userInputPlayers = request.getParameter("players");
         // Combine the inputs into strings for CardAcronyms.input1 and input2
         String input1 = userInputHand;
         String input2 = userInputFlop;
