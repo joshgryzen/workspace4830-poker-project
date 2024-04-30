@@ -16,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/CardInsertServlet")
 public class CardInsertServlet extends HttpServlet {
@@ -26,16 +27,19 @@ public class CardInsertServlet extends HttpServlet {
    }
 
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	  HttpSession session = request.getSession();
+	  
 	  StringConversion servlet = new StringConversion();
 	  servlet.doPost(request, response);	   
       String hand = request.getParameter("hand");
       String flop = request.getParameter("flop");
       String turn = request.getParameter("turn");
       String players = request.getParameter("players");
+      String username = (String) session.getAttribute("username"); 
 
       Connection connection = null;
       
-      String insertSql = "INSERT INTO pokerTable (hand, flop, turn, players, stats) VALUES (?, ?, ?, ?, ?)";
+      String insertSql = "INSERT INTO pokerTable (hand, flop, turn, players, stats, username) VALUES (?, ?, ?, ?, ?, ?)";
       // Get the number of players from the servlet       
       int intValuePlayers = servlet.getIntValuePlayers(); 
       
@@ -62,6 +66,7 @@ public class CardInsertServlet extends HttpServlet {
           insertStmt.setString(3, turn);
           insertStmt.setString(4, players);
           insertStmt.setDouble(5, winrate);
+          insertStmt.setString(6, username);
           insertStmt.executeUpdate();
           
           

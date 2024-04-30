@@ -31,6 +31,7 @@ footer {
 	text-align: center;
 	padding: 5px;
 }
+
 </style>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script
@@ -41,17 +42,22 @@ footer {
 $(document).ready(function() {
     // Initialize DataTable
     var table = $('#pokerTable').DataTable({
-                columnDefs: [{
-                	/*
-                    targets: -1, // Target the last column (Quantity)
-                    render: function(data, type, row, meta) {
-                        // Render increment and decrement buttons and delete button
-                        return '<span>' + data + '</span>' +
-                            '&emsp;<button data-row="' + meta.row + '">Play Test</button>';
-                            
-                    }
-                    */
-                }]
+    	
+		    	columnDefs: [
+		    		{
+		    	        targets: '_all', // Target all columns
+		    	        className: 'dt-center' // Apply 'dt-center' class to center align data
+		    	    },
+		    		{
+		            targets: -1, // Target the last column (Quantity)
+		            render: function(data, type, row, meta) {
+		                // Render increment and decrement buttons and delete button
+		                return '<span>' + data + '</span>' + '%'
+		                    // '<button class="delete" data-row="' + meta.row + '">Delete</button>';
+		                    
+		            }
+		        }]
+        
             });
     
     // Make AJAX call to fetch data from servlet
@@ -76,6 +82,33 @@ $(document).ready(function() {
         }
     });
     
+    /*
+    $('#pokerTable tbody').on('click', 'button.delete', function() {
+        var rowIdx = $(this).data('row');
+        var rowData = table.row(rowIdx).data();
+        var cardName = rowData[3]; // Assuming the card name is in the 4th column
+        deleteCard(cardName);
+        table.row($(this).parents('tr')).remove().draw(false); // Remove the row from the DataTable
+    });
+
+    // Function to delete the card
+    function deleteCard(cardName) {
+        $.ajax({
+            url: 'DeleteCardServlet', // URL of your servlet for deleting a card
+            method: 'POST',
+            data: {
+                cardName: cardName
+            },
+            success: function(response) {
+                // Handle success response if needed
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
+    */
+    
 });</script>
 </head>
 <body>
@@ -83,8 +116,10 @@ $(document).ready(function() {
 		<h1>Home Page</h1>
 	</header>
 	<nav>
-		<a href="/poker-project/home.jsp">Home</a> <br> <a
-			href="/poker-project/insert.html">Insert Cards</a> <br>
+		<a href="/poker-project/home.jsp">Home</a> <br> 
+		<a href="/poker-project/cardgame.html">Visual Insert</a> <br>
+		<a href="/poker-project/insert.html">Text Insert</a> <br>
+		<a href="/poker-project/loginScreen.html">Log Out</a> <br>
 	</nav>
 	<section>
 		<table id="pokerTable" class="display">
@@ -94,7 +129,7 @@ $(document).ready(function() {
 					<th>Flop</th>
 					<th>Turn</th>
 					<th>Players</th>
-					<th>Stats / Playtest</th>
+					<th>Winrate</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -102,6 +137,6 @@ $(document).ready(function() {
 			</tbody>
 		</table>
 	</section>
-	<footer> Poker Project </footer>
+	<footer>Poker Project</footer>
 </body>
 </html>
