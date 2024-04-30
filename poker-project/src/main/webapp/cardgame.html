@@ -53,26 +53,16 @@ input[type="submit"] {
 
 }
 
-
+.rectangle-container {
+    position: relative;
+}
 .home-button {
     margin-top: -10px;
     margin-right: 10px;
 }
 
-.deck {
-    width: 50%; 
-    height: auto; 
-    position: absolute;
 
-    
-    bottom: 150%; /* Add some space below the image */
-    position: absolute; /* Set position absolute for the image */
-     /* Adjust top position as needed */
-    right: 25%; /* Adjust right position as needed */
-    
-    
-}
-        /* Style for clickable rectangles */
+      /* Style for clickable rectangles */
 .rectangleHand {
             width: 63px;
             height: 86px;
@@ -81,41 +71,166 @@ input[type="submit"] {
             cursor: pointer; /* Change cursor to pointer on hover */
             display: inline-block; /* Display rectangles inline */
 }
+      /* Style for clickable rectangles */
+.rectangleFlop {
+            width: 63px;
+            height: 86px;
+            background-color: rgba(255, 255, 255, 0.5); /* Adjust opacity as needed */
+            margin: 10px; /* Add some margin between rectangles */
+            cursor: pointer; /* Change cursor to pointer on hover */
+            display: inline-block; /* Display rectangles inline */
+}
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 400;
+    top: 150;
+    width: 980; /* Full width */
+    height: 430; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+
+}
+
+/* Modal content */
+.modal-content {
+    position: fixed; /* Stay in place */
+    left: 400;
+    top: 150;
+    width: 940; /* Full width */
+    height: 390; /* Full height */
+    padding: 20px;
+    border: 1px solid #888;
+
+}
+
+/* Close button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Style for card images */
+.card-image {
+    width: 65px; /* Adjust image size as needed */
+    height: auto; /* Maintain aspect ratio */
+    margin: 3px; /* Add some margin between card images */
+}
+
+
 </style>
 </head>
 <body>
 
 <div class="card_table" id=card_table>
-
 </div>
-
 <section>
-	<form action="insertCards" method="POST">
-        <div>
+    <form action="insertPlayerHand" method="POST">
+        <div class="rectangle-container">
             <!-- Clickable rectangles -->
+            <div class="rectangleFlop" onclick="handleRectangleClick(3)"></div>
+            <div class="rectangleFlop" onclick="handleRectangleClick(4)"></div>
+            <div class="rectangleFlop" onclick="handleRectangleClick(5)"></div>
+            <div class="rectangleFlop" onclick="handleRectangleClick(6)"></div>
+            <div class="rectangleFlop" onclick="handleRectangleClick(7)"></div>
+        </div>
+        <!-- New rectangles added above the current ones -->
+        <div class="rectangle-container">
             <div class="rectangleHand" onclick="handleRectangleClick(1)"></div>
             <div class="rectangleHand" onclick="handleRectangleClick(2)"></div>
         </div>
         <input type="button" class="home-button" value="Home" onclick="window.location.href='home.html';">      
         <input type="submit" value="Submit"/>
     </form>
-
 </section>
-
-
-
-
+<!-- Modal dialogue box -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <div id="modalContent"></div>
+    </div>
+</div>
 <script>
     function handleRectangleClick(rectangleNumber) {
         // Handle the click event for each rectangle
         console.log("Rectangle " + rectangleNumber + " clicked!");
         // You can add your logic here for each rectangle click
     }
+    
 </script>
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on a rectangle, open the modal
+    function handleRectangleClick(rectangleNumber) {
+        console.log("Rectangle " + rectangleNumber + " clicked!");
+        modal.style.display = "block";
+        populateModalWithCardImages();
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+    // Populate modal with card images when modal is displayed
+    modal.addEventListener("display", function() {
+        populateModalWithCardImages();
+    });
+
+    function populateModalWithCardImages() {
+    var modalContent = document.getElementById("modalContent");
+    var suits = ['c', 'd', 's', 'h']; // Array of suits
+
+    // Loop through each suit
+    suits.forEach(function(suit) {
+        // Create a div for each suit
+        var suitDiv = document.createElement("div");
+        suitDiv.className = "suit-container";
+
+        // Loop through card values (2-14) for the current suit
+        for (var i = 2; i <= 14; i++) {
+            // Create image element for the current card
+            var cardImage = document.createElement("img");
+            cardImage.src = "Cards/" + i + suit + ".png";
+            cardImage.className = "card-image"; // Add class for styling
+
+            // Add event listener for future manipulation
+            cardImage.addEventListener("click", function() {
+                // Add your manipulation logic here
+                console.log("Card clicked: " + this.src);
+            });
+
+            // Append the card image to the suit div
+            suitDiv.appendChild(cardImage);
+        }
+
+        // Append the suit div to the modal content
+        modalContent.appendChild(suitDiv);
+    });
+}
 
 
-
-
-
+</script>
 </body>
 </html>
