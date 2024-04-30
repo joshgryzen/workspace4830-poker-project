@@ -19,7 +19,7 @@ public class WinRateTest {
 	//Initalize the WebDriver instance.
 	//Change path/to/chromedriver to the path on your local machine.
 	public void setUp() {
-		System.setProperty("webdriver.chrome.driver", path/to/chromedriver);
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\cjgry\\Desktop\\selenium-java-4.20.0\\selenium-chrome-driver-4.20.0.jar");
 		driver = new ChromeDriver;
 	}
 	@Test
