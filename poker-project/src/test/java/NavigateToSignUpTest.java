@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 //Second test, can we navigate from the home page to the insert cards page?
-public class NavigationTest {
+public class NavigatetoSignUpTest.java {
 	private WebDriver driver;
 	private String baseUrl = "http://ec2-18-225-5-151.us-east-2.compute.amazonaws.com:8080/poker-project/home.jsp";
 	private String loginUrl = "http://ec2-18-225-5-151.us-east-2.compute.amazonaws.com:8080/poker-project/loginScreen.html";
@@ -25,20 +25,25 @@ public class NavigationTest {
 		System.setProperty("webdriver.chrome.driver", path/to/chromedriver);
 		driver = new ChromeDriver;
 	}
+
+	
 	@Test
-	public void testNavigationToInsertCardsPage() {
+	public void testNavigationToSignUpFromHome() {
 		//Open the website.
 		driver.get(baseUrl);
 		
-		//Next, we find the "Insert Cards" hyperlink.
-		WebElement insertCardsLink = driver.findElement(By.linkText("Insert Cards"));
+		//Next, we find the "Sign Up" hyperlink.
+		WebElement signupLink  = driver.findElement(By.linkText("Sign Up"));
 		
 		//Next, we want to click on this link.
-		insertCardsLink.click();
+		signupLink.click();
 		
 		//Now that we've clicked on the link, let's check the URL. 
-		assertTrue("Expected URL contains 'insert'", currentUrl.contains("insert"));
+		assertTrue("Expected URL contains 'signUpPage'", currentUrl.contains("signUpPage"));
 	}
+	
+
+
 	
 	@After
 	//Close down the driver after the test is completed. 
