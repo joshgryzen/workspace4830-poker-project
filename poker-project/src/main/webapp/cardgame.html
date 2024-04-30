@@ -84,7 +84,7 @@ input[type="submit"] {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
-    left: 400;
+    left: 500;
     top: 150;
     width: 980; /* Full width */
     height: 430; /* Full height */
@@ -96,7 +96,7 @@ input[type="submit"] {
 /* Modal content */
 .modal-content {
     position: fixed; /* Stay in place */
-    left: 400;
+    left: 500;
     top: 150;
     width: 940; /* Full width */
     height: 390; /* Full height */
@@ -122,9 +122,11 @@ input[type="submit"] {
 
 /* Style for card images */
 .card-image {
-    width: 65px; /* Adjust image size as needed */
-    height: auto; /* Maintain aspect ratio */
+    width: 63px; /* Adjust image size as needed */
+    height: 86; /* Maintain aspect ratio */
     margin: 3px; /* Add some margin between card images */
+    box-sizing: border-box; /* Include border in dimensions */
+    border: 2px solid transparent; /* Initially transparent border */
 }
 
 
@@ -161,76 +163,140 @@ input[type="submit"] {
     </div>
 </div>
 <script>
-    function handleRectangleClick(rectangleNumber) {
-        // Handle the click event for each rectangle
-        console.log("Rectangle " + rectangleNumber + " clicked!");
-        // You can add your logic here for each rectangle click
-    }
-    
-</script>
-<script>
     // Get the modal
     var modal = document.getElementById("myModal");
 
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
 
-    // When the user clicks on a rectangle, open the modal
+    // Define a variable to track selected cards
+    var selectedCards = [];
+
+
+
+    function updateCardRectangles() {
+        var rectangles = document.querySelectorAll(".rectangleFlop");
+        selectedCards.forEach(function(cardSrc, index) {
+            if (index < 5) {
+                rectangles[index].style.backgroundImage = "url('" + cardSrc + "')";
+                rectangles[index].style.backgroundSize = "cover";
+                rectangles[index].style.backgroundPosition = "center";
+            }
+        });
+    }
+
+
+    function toggleCardSelection(cardImage) {
+        var selectedIndex = selectedCards.indexOf(cardImage.src);
+        if (selectedIndex !== -1) {
+            selectedCards.splice(selectedIndex, 1);
+            cardImage.style.border = ""; // Reset border
+        } else {
+            if (selectedCards.length < 5) { // Limit selection to 5 cards
+                selectedCards.push(cardImage.src);
+                cardImage.style.border = "2px solid yellow"; // Set border to yellow
+            }
+        }
+        
+        // Update rectangles to match selected cards
+        updateCardRectangles();
+    }
+
+
+
+
+    // Function to update card appearance based on selection and update rectangles
+    function updateCardAppearance() {
+        var cardImages = document.querySelectorAll(".card-image");
+        cardImages.forEach(function(cardImage) {
+            var cardSrc = cardImage.src;
+            var isSelected = selectedCards.includes(cardSrc);
+            if (isSelected) {
+                cardImage.style.opacity = "0.5"; // Set opacity to grey for selected cards
+            } else {
+                cardImage.style.opacity = ""; // Reset opacity for unselected cards
+            }
+
+            // Update corresponding rectangle for selected cards
+            var rectangles = document.querySelectorAll(".rectangleFlop");
+            rectangles.forEach(function(rectangle, index) {
+                if (selectedCards[index] === cardSrc) {
+                    rectangle.style.backgroundColor = "yellow"; // Highlight corresponding rectangle
+                } else {
+                    rectangle.style.backgroundColor = ""; // Reset color for other rectangles
+                }
+            });
+        });
+    }
+
+
+
+    // Function to populate modal with card images
+    function populateModalWithCardImages(rectangleClicked) {
+        var modalContent = document.getElementById("modalContent");
+        var suits = ['c', 'd', 's', 'h']; // Array of suits
+
+        // Clear modal content before populating
+        modalContent.innerHTML = "";
+
+        // Loop through each suit
+        suits.forEach(function(suit) {
+            // Create a div for each suit
+            var suitDiv = document.createElement("div");
+            suitDiv.className = "suit-container";
+
+            // Loop through card values (2-14) for the current suit
+            for (var i = 2; i <= 14; i++) {
+                // Create image element for the current card
+                var cardImage = document.createElement("img");
+                cardImage.src = "Cards/" + i + suit + ".png";
+                cardImage.className = "card-image"; // Add class for styling
+
+                // Add event listener for card selection
+                cardImage.addEventListener("click", function() {
+                    toggleCardSelection(this);
+                });
+
+                // Append the card image to the suit div
+                suitDiv.appendChild(cardImage);
+            }
+
+            // Append the suit div to the modal content
+            modalContent.appendChild(suitDiv);
+        });
+
+        // Update card appearance based on selection
+        if (rectangleClicked >= 3 && rectangleClicked <= 7) {
+            updateCardAppearance();
+        }
+    }
+
+
+    // Function to handle rectangle clicks
     function handleRectangleClick(rectangleNumber) {
         console.log("Rectangle " + rectangleNumber + " clicked!");
         modal.style.display = "block";
+
+        // Populate modal with card images
         populateModalWithCardImages();
     }
 
-    // When the user clicks on <span> (x), close the modal
+
+    
+    // When the user clicks on <span> (x) or outside of the modal, close it
     span.onclick = function() {
         modal.style.display = "none";
+        // Clear selected cards array when modal is closed
+        selectedCards = [];
     }
 
-    // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none";
+            // Clear selected cards array when modal is closed
+            selectedCards = [];
         }
     }
-    // Populate modal with card images when modal is displayed
-    modal.addEventListener("display", function() {
-        populateModalWithCardImages();
-    });
-
-    function populateModalWithCardImages() {
-    var modalContent = document.getElementById("modalContent");
-    var suits = ['c', 'd', 's', 'h']; // Array of suits
-
-    // Loop through each suit
-    suits.forEach(function(suit) {
-        // Create a div for each suit
-        var suitDiv = document.createElement("div");
-        suitDiv.className = "suit-container";
-
-        // Loop through card values (2-14) for the current suit
-        for (var i = 2; i <= 14; i++) {
-            // Create image element for the current card
-            var cardImage = document.createElement("img");
-            cardImage.src = "Cards/" + i + suit + ".png";
-            cardImage.className = "card-image"; // Add class for styling
-
-            // Add event listener for future manipulation
-            cardImage.addEventListener("click", function() {
-                // Add your manipulation logic here
-                console.log("Card clicked: " + this.src);
-            });
-
-            // Append the card image to the suit div
-            suitDiv.appendChild(cardImage);
-        }
-
-        // Append the suit div to the modal content
-        modalContent.appendChild(suitDiv);
-    });
-}
-
-
 </script>
 </body>
 </html>
