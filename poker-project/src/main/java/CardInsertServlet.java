@@ -33,8 +33,8 @@ public class CardInsertServlet extends HttpServlet {
 	  servlet.doPost(request, response);	   
       String hand = request.getParameter("hand");
       String flop = request.getParameter("flop");
-      String turn = request.getParameter("turn");
-      String players = request.getParameter("players");
+      String turn = request.getParameter("turnNumber");
+      String players = request.getParameter("player");
       String username = (String) session.getAttribute("username"); 
 
       Connection connection = null;
