@@ -211,7 +211,7 @@ input[type="submit"] {
     // Function to populate modal with card images
     function populateModalWithCardImages() {
         var modalContent = document.getElementById("modalContent");
-        var suits = ['C', 'D', 'S', 'H']; // Array of suits
+        var suits = ['c', 'd', 's', 'h']; // Array of suits
         // Clear modal content before populating
         modalContent.innerHTML = "";
         // Loop through each suit
@@ -223,11 +223,26 @@ input[type="submit"] {
             for (var i = 2; i <= 14; i++) {
                 // Convert numeric card values to appropriate file names
                 var cardValue = i;
-                if (i === 10) cardValue = 'T';
-                else if (i === 11) cardValue = 'J';
-                else if (i === 12) cardValue = 'Q';
-                else if (i === 13) cardValue = 'K';
-                else if (i === 14) cardValue = 'A';
+                if (i === 10) {
+                	suit = suit.toUpperCase();
+                	cardValue = 'T';
+                }
+                else if (i === 11) {
+                	suit = suit.toUpperCase();
+                	cardValue = 'J';
+                }
+                else if (i === 12) {
+                	suit = suit.toUpperCase();
+                	cardValue = 'Q';
+                }
+                else if (i === 13) {
+                	suit = suit.toUpperCase();
+                	cardValue = 'K';
+                }
+                else if (i === 14) {
+                	suit = suit.toUpperCase();
+                	cardValue = 'A';
+                }
                 // Create image element for the current card
                 var cardImage = document.createElement("img");
                 cardImage.src = "Cards/" + cardValue + suit + ".png";
