@@ -1,29 +1,41 @@
-//package src.test.java;
-
-import java.util.concurrent.TimeUnit;
 import org.junit.*;
 import static org.junit.Assert.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import java.time.Duration;
 
-public class HomeToInsert {
+public class MonteCarloBad {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
-
+  JavascriptExecutor js;
   @Before
   public void setUp() throws Exception {
-	driver = new ChromeDriver();
+    driver = new ChromeDriver();
     baseUrl = "https://www.google.com/";
-    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(60));
+    js = (JavascriptExecutor) driver;
   }
 
   @Test
-  public void testHomeToInsert() throws Exception {
-    driver.get("http://localhost:8080/poker-project/home.jsp");
-    driver.findElement(By.linkText("Text Insert")).click();
-    // Warning: assertTextPresent may require manual changes
+  public void testMonteCarloBad() throws Exception {
+    driver.get("http://localhost:8080/poker-project/insert.html");
+    driver.findElement(By.name("hand")).click();
+    driver.findElement(By.name("hand")).clear();
+    driver.findElement(By.name("hand")).sendKeys("2S+7H");
+    driver.findElement(By.name("flop")).click();
+    driver.findElement(By.name("flop")).clear();
+    driver.findElement(By.name("flop")).sendKeys("JD+AD+KD");
+    driver.findElement(By.name("turn")).click();
+    driver.findElement(By.name("turn")).clear();
+    driver.findElement(By.name("turn")).sendKeys("2");
+    driver.findElement(By.name("players")).click();
+    driver.findElement(By.name("players")).clear();
+    driver.findElement(By.name("players")).sendKeys("4");
+    driver.findElement(By.xpath("//input[@value='Submit']")).click();
+    driver.get("http://localhost:8080/poker-project/CardInsertServlet");
+    //Warning: assertTextPresent may require manual changes
     assertTrue(driver.findElement(By.cssSelector("BODY")).getText().matches("^[\\s\\S]*$"));
   }
 
