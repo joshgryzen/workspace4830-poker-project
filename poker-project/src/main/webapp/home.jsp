@@ -31,6 +31,7 @@ footer {
 	text-align: center;
 	padding: 5px;
 }
+
 </style>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script
@@ -118,6 +119,7 @@ $(document).ready(function() {
 		<a href="/poker-project/home.jsp">Home</a> <br> 
 		<a href="/poker-project/cardgame.html">Visual Insert</a> <br>
 		<a href="/poker-project/insert.html">Text Insert</a> <br>
+		<a href="/poker-project/loginScreen.html">Log Out</a> <br>
 	</nav>
 	<section>
 		<table id="pokerTable" class="display">
@@ -135,6 +137,6 @@ $(document).ready(function() {
 			</tbody>
 		</table>
 	</section>
-	<footer> Poker Project </footer>
+	<footer>Poker Project</footer>
 </body>
 </html>
