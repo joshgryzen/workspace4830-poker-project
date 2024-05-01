@@ -145,14 +145,23 @@ public class MyServletLogIn extends HttpServlet {
                             createUserStatement.setString(1, username);
                             createUserStatement.setString(2, password);
                             int rowsInserted = createUserStatement.executeUpdate();
+                            
+                            // Set the content type to HTML
+                            response.setContentType("text/html");
+                            
+                            // Check if sign up was successful
                             if (rowsInserted > 0) {
                                 // Print to indicate successful user creation
                                 System.out.println("User created successfully!");
                                 response.getWriter().println("User created successfully!<br>");
+                                // Link to go back to login screen
+                                response.getWriter().println("<a href='loginScreen.html'>Back to Login</a>");
                             } else {
                                 // Print to indicate failure in user creation
                                 System.out.println("Failed to create user!");
                                 response.getWriter().println("Failed to create user!<br>");
+                                // Link to go back to login screen
+                                response.getWriter().println("<a href='loginScreen.html'>Back to Login</a>");
                             }
                         }
                     }

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .content {
+            text-align: center;
+            padding: 50px;
+            color: white;
+        }
+
+        .image-container {
+            position: absolute;
+            top: 15px;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .image {
+            max-width: 75%; /* Set max-width to prevent image overflow */
+            max-height: 75%; /* Set max-height to prevent image overflow */
+        }
+
+        header {
+            background-color:black;
+            color:white;
+            text-align:center;
+            padding:5px;	 
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        footer {
+            background-color:black;
+            color:white;
+            clear:both;
+            text-align:center;
+            padding:5px;	 	 
+            position: fixed;
+            bottom:0;
+            width:100%
+        }
+
+        button {
+            left: 50%;
+            position:fixed;
+            bottom:30px;
+            transform: translateX(-50%);
+            z-index:1;
+            width: 90px; /* Set width */
+            height: 25px; /* Set height */
+            font-size: 16px; /* Set font size */
+        }
+        
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1> Hand Ranking </h1>
+    </header>
+
+    <div class="content"> </div>
+    <div class="image-container">
+        <img class="image" src="cardRank.jpg" alt="Image">
+    </div>
+
+    <a href="/poker-project/loginScreen.html">
+        <button>Back</button>
+    </a>
+
+    <footer>
+        Poker Project
+    </footer>
+</body>
+</html>
