@@ -423,11 +423,9 @@ input[type="submit"] {
             updateSelectionIndicators(); // Update visual feedback for selection mode
         });
     });
+    
     // Event listener for the form submit
-// Event listener for the form submit
 	document.querySelector('form').addEventListener('submit', function(event) {
-	    event.preventDefault(); // Prevent default form submission behavior
-	
 	    // Retrieve data from the form
 	    const formData = getDataFromForm();
 	
