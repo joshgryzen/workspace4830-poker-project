@@ -10,7 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 
 @WebServlet("/MyServletLogIn")
@@ -48,9 +47,6 @@ public class MyServletLogIn extends HttpServlet {
 
 
     private void handleLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    	// Set session so we can pass username to the home page
-    	HttpSession session = request.getSession();
-    	
         // Debugging statements before executing login logic
         System.out.println("Executing login logic...");
         String username = request.getParameter("uname");
@@ -78,8 +74,6 @@ public class MyServletLogIn extends HttpServlet {
                     ResultSet resultSet = statement.executeQuery();
                     if (resultSet.next()) {
                         // User exists, login successful
-                    	// Store username in session
-                    	session.setAttribute("username", username); 
                     	response.sendRedirect("home.jsp");
                         response.getWriter().println("Login successful!<br>");
                     } else {
@@ -105,6 +99,7 @@ public class MyServletLogIn extends HttpServlet {
     private void handleSignup(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // Print to indicate the method is invoked
         System.out.println("Handling signup action...");
+
         String username = request.getParameter("new_uname");
         String password = request.getParameter("new_psw");
 

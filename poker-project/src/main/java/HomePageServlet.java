@@ -9,17 +9,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 @WebServlet("/HomePageServlet")
 public class HomePageServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	// Get session to access username
-    	HttpSession session = request.getSession();
-    	
-    	response.setContentType("application/json");
+        response.setContentType("application/json");
         // Set character encoding before writing response
         response.setCharacterEncoding("UTF-8");
 
@@ -32,14 +28,12 @@ public class HomePageServlet extends HttpServlet {
             DBConnection.getDBConnection(getServletContext());
             connection = DBConnection.connection;
 
-            String username = (String) session.getAttribute("username"); 
-            String selectSQL = "SELECT * FROM pokerTable WHERE username = \"" + username + "\"";
+            String selectSQL = "SELECT * FROM pokerTable";
             preparedStatement = connection.prepareStatement(selectSQL);
             resultSet = preparedStatement.executeQuery();
 
             StringBuilder jsonData = new StringBuilder("[");
             while (resultSet.next()) {
-
                 String hand = resultSet.getString("hand");
                 String flop = resultSet.getString("flop");
                 int turn = resultSet.getInt("turn");

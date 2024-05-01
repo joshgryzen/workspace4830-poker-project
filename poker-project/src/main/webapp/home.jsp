@@ -31,7 +31,6 @@ footer {
 	text-align: center;
 	padding: 5px;
 }
-
 </style>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script
@@ -42,22 +41,17 @@ footer {
 $(document).ready(function() {
     // Initialize DataTable
     var table = $('#pokerTable').DataTable({
-    	
-		    	columnDefs: [
-		    		{
-		    	        targets: '_all', // Target all columns
-		    	        className: 'dt-center' // Apply 'dt-center' class to center align data
-		    	    },
-		    		{
-		            targets: -1, // Target the last column (Quantity)
-		            render: function(data, type, row, meta) {
-		                // Render increment and decrement buttons and delete button
-		                return '<span>' + data + '</span>' + '%'
-		                    // '<button class="delete" data-row="' + meta.row + '">Delete</button>';
-		                    
-		            }
-		        }]
-        
+                columnDefs: [{
+                	/*
+                    targets: -1, // Target the last column (Quantity)
+                    render: function(data, type, row, meta) {
+                        // Render increment and decrement buttons and delete button
+                        return '<span>' + data + '</span>' +
+                            '&emsp;<button data-row="' + meta.row + '">Play Test</button>';
+                            
+                    }
+                    */
+                }]
             });
     
     // Make AJAX call to fetch data from servlet
@@ -82,6 +76,7 @@ $(document).ready(function() {
         }
     });
     
+<<<<<<< Updated upstream
     /*
     $('#pokerTable tbody').on('click', 'button.delete', function() {
         var rowIdx = $(this).data('row');
@@ -109,6 +104,8 @@ $(document).ready(function() {
     }
     */
     
+=======
+>>>>>>> Stashed changes
 });</script>
 </head>
 <body>
@@ -116,10 +113,15 @@ $(document).ready(function() {
 		<h1>Home Page</h1>
 	</header>
 	<nav>
+<<<<<<< Updated upstream
 		<a href="/poker-project/home.jsp">Home</a> <br> 
 		<a href="/poker-project/cardgame.html">Visual Insert</a> <br>
 		<a href="/poker-project/insert.html">Text Insert</a> <br>
 		<a href="/poker-project/loginScreen.html">Log Out</a> <br>
+=======
+		<a href="/poker-project/home.jsp">Home</a> <br> <a
+			href="/poker-project/insert.html">Insert Cards</a> <br>
+>>>>>>> Stashed changes
 	</nav>
 	<section>
 		<table id="pokerTable" class="display">
@@ -129,7 +131,7 @@ $(document).ready(function() {
 					<th>Flop</th>
 					<th>Turn</th>
 					<th>Players</th>
-					<th>Winrate</th>
+					<th>Stats / Playtest</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -137,6 +139,6 @@ $(document).ready(function() {
 			</tbody>
 		</table>
 	</section>
-	<footer>Poker Project</footer>
+	<footer> Poker Project </footer>
 </body>
 </html>
