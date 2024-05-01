@@ -75,8 +75,6 @@ $(document).ready(function() {
             console.error(error);
         }
     });
-    
-<<<<<<< Updated upstream
     /*
     $('#pokerTable tbody').on('click', 'button.delete', function() {
         var rowIdx = $(this).data('row');
@@ -104,24 +102,20 @@ $(document).ready(function() {
     }
     */
     
-=======
->>>>>>> Stashed changes
-});</script>
+
+</script>
 </head>
 <body>
 	<header>
 		<h1>Home Page</h1>
 	</header>
 	<nav>
-<<<<<<< Updated upstream
 		<a href="/poker-project/home.jsp">Home</a> <br> 
 		<a href="/poker-project/cardgame.html">Visual Insert</a> <br>
 		<a href="/poker-project/insert.html">Text Insert</a> <br>
 		<a href="/poker-project/loginScreen.html">Log Out</a> <br>
-=======
 		<a href="/poker-project/home.jsp">Home</a> <br> <a
 			href="/poker-project/insert.html">Insert Cards</a> <br>
->>>>>>> Stashed changes
 	</nav>
 	<section>
 		<table id="pokerTable" class="display">

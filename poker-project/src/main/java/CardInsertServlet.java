@@ -30,14 +30,9 @@ public class CardInsertServlet extends HttpServlet {
 	  servlet.doPost(request, response);	   
       String hand = request.getParameter("hand");
       String flop = request.getParameter("flop");
-<<<<<<< Updated upstream
-      String turn = request.getParameter("turn");
-      String players = request.getParameter("players");
       String username = (String) session.getAttribute("username"); 
-=======
       String turn = request.getParameter("turnNumber");
       String players = request.getParameter("playerNumber");
->>>>>>> Stashed changes
 
       Connection connection = null;
       
