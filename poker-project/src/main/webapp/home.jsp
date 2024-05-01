@@ -40,20 +40,24 @@ footer {
 <script>
 $(document).ready(function() {
     // Initialize DataTable
-    var table = $('#pokerTable').DataTable({
-                columnDefs: [{
-                	/*
+	var table = $('#pokerTable').DataTable({
+        
+                columnDefs: [
+                    {
+                        targets: '_all', // Target all columns
+                        className: 'dt-center' // Apply 'dt-center' class to center align data
+                    },
+                    {
                     targets: -1, // Target the last column (Quantity)
                     render: function(data, type, row, meta) {
                         // Render increment and decrement buttons and delete button
-                        return '<span>' + data + '</span>' +
-                            '&emsp;<button data-row="' + meta.row + '">Play Test</button>';
+                        return '<span>' + data + '</span>' + '%'
+                            // '<button class="delete" data-row="' + meta.row + '">Delete</button>';
                             
                     }
-                    */
                 }]
+        
             });
-    
     // Make AJAX call to fetch data from servlet
     $.ajax({
         url: 'HomePageServlet', // Specify the URL of your servlet
@@ -110,11 +114,10 @@ $(document).ready(function() {
 		<h1>Home Page</h1>
 	</header>
 	<nav>
+		<a href="/poker-project/home.jsp">Home</a>  <br>
 		<a href="/poker-project/cardgame.html">Visual Insert</a> <br>
 		<a href="/poker-project/insert.html">Text Insert</a> <br>
 		<a href="/poker-project/loginScreen.html">Log Out</a> <br>
-		<a href="/poker-project/home.jsp">Home</a> <br> <a
-			href="/poker-project/insert.html">Insert Cards</a> <br>
 	</nav>
 	<section>
 		<table id="pokerTable" class="display">
@@ -124,7 +127,7 @@ $(document).ready(function() {
 					<th>Flop</th>
 					<th>Turn</th>
 					<th>Players</th>
-					<th>Stats / Playtest</th>
+					<th>Winrate</th>
 				</tr>
 			</thead>
 			<tbody>

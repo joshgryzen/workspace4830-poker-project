@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 
 @WebServlet("/MyServletLogIn")
@@ -51,6 +52,7 @@ public class MyServletLogIn extends HttpServlet {
         System.out.println("Executing login logic...");
         String username = request.getParameter("uname");
         String password = request.getParameter("psw");
+        HttpSession session = request.getSession();
         // Debugging statement before using the database connection
         System.out.println("Attempting to use database connection...");
         // Get the connection instance from MyServletDB
@@ -74,6 +76,8 @@ public class MyServletLogIn extends HttpServlet {
                     ResultSet resultSet = statement.executeQuery();
                     if (resultSet.next()) {
                         // User exists, login successful
+                    	// Store username in session
+                        session.setAttribute("username", username);
                     	response.sendRedirect("home.jsp");
                         response.getWriter().println("Login successful!<br>");
                     } else {
