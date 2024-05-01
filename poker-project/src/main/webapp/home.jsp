@@ -103,14 +103,13 @@ $(document).ready(function() {
     */
     
 
-</script>
+});</script>
 </head>
 <body>
 	<header>
 		<h1>Home Page</h1>
 	</header>
 	<nav>
-		<a href="/poker-project/home.jsp">Home</a> <br> 
 		<a href="/poker-project/cardgame.html">Visual Insert</a> <br>
 		<a href="/poker-project/insert.html">Text Insert</a> <br>
 		<a href="/poker-project/loginScreen.html">Log Out</a> <br>

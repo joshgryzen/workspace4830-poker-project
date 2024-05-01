@@ -16,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/CardInsertServlet")
 public class CardInsertServlet extends HttpServlet {
@@ -27,6 +28,7 @@ public class CardInsertServlet extends HttpServlet {
 
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	  StringConversion servlet = new StringConversion();
+	  HttpSession session = request.getSession();
 	  servlet.doPost(request, response);	   
       String hand = request.getParameter("hand");
       String flop = request.getParameter("flop");
@@ -36,7 +38,7 @@ public class CardInsertServlet extends HttpServlet {
 
       Connection connection = null;
       
-      String insertSql = "INSERT INTO pokerTable (hand, flop, turn, players, stats) VALUES (?, ?, ?, ?, ?)";
+      String insertSql = "INSERT INTO pokerTable (hand, flop, turn, players, stats, username) VALUES (?, ?, ?, ?, ?, ?)";
       // Get the number of players from the servlet       
       int intValuePlayers = servlet.getIntValuePlayers(); 
       
@@ -63,15 +65,38 @@ public class CardInsertServlet extends HttpServlet {
           insertStmt.setString(3, turn);
           insertStmt.setString(4, players);
           insertStmt.setDouble(5, winrate);
+          insertStmt.setString(6, username);
           insertStmt.executeUpdate();
             
-	      // Redirect to cardgame.html with winrate as a parameter
-	      response.sendRedirect("home.jsp");          
+	      // Redirect to cardgame.html with winrate as a parameter         
           connection.close();
       } catch (Exception e) {
           e.printStackTrace();
       }
 
+      // Set response content type
+      // TODO: Update the response and integrate card evaluation API, here or in another file
+      response.setContentType("text/html");
+      PrintWriter out = response.getWriter();
+      String title = "Insert Card Data to DB";
+      String docType = "<!doctype html public \"-//w3c//dtd html 4.0 " + "transitional//en\">\n";
+      out.println(docType + //
+            "<html>\n" + //
+            "<head><title>" + title + "</title></head>\n" + //
+            "<body bgcolor=\"#f0f0f0\">\n" + //
+            "<h2 align=\"center\">" + title + "</h2>\n" + //
+            "<ul>\n" + //
+
+            "  <li><b>Hand</b>: " + hand + "\n" + //
+            "  <li><b>Flop</b>: " + flop + "\n" + //
+            "  <li><b>players</b>: " + players + "\n" + //
+            "  <li><b>Turn</b>: " + turn + "\n" + //
+            "  <li><b>Winrate</b>: " + winrate + "\n" + //
+            "</ul>\n");
+
+      out.println("<a href=/poker-project/home.jsp>Return Home</a> <br>");
+      out.println("</body></html>");   
+      
 
    }
 
