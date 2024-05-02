@@ -32,9 +32,8 @@ public class LogInSuccess {
     driver.findElement(By.id("psw")).sendKeys("josh");
     driver.findElement(By.xpath("//body")).click();
     driver.findElement(By.name("loginButton")).click();
-    driver.get("http://localhost:8080/poker-project/home.jsp");
-    //Warning: assertTextPresent may require manual changes
-    assertTrue(driver.findElement(By.cssSelector("BODY")).getText().matches("^[\\s\\S]*$"));
+//    driver.get("http://localhost:8080/poker-project/home.jsp");
+    assertTrue(driver.findElement(By.cssSelector("header")).getText().matches("Home Page"));
   }
 
   @After

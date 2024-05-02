@@ -27,16 +27,16 @@ public class MonteCarloWin {
     driver.findElement(By.name("flop")).click();
     driver.findElement(By.name("flop")).clear();
     driver.findElement(By.name("flop")).sendKeys("QH+JH+TH");
-    driver.findElement(By.name("turn")).click();
-    driver.findElement(By.name("turn")).clear();
-    driver.findElement(By.name("turn")).sendKeys("2");
-    driver.findElement(By.name("players")).click();
-    driver.findElement(By.name("players")).clear();
-    driver.findElement(By.name("players")).sendKeys("4");
+    driver.findElement(By.name("turnNumber")).click();
+    driver.findElement(By.name("turnNumber")).clear();
+    driver.findElement(By.name("turnNumber")).sendKeys("2");
+    driver.findElement(By.name("playerNumber")).click();
+    driver.findElement(By.name("playerNumber")).clear();
+    driver.findElement(By.name("playerNumber")).sendKeys("4");
     driver.findElement(By.xpath("//input[@value='Submit']")).click();
-    driver.get("http://localhost:8080/poker-project/CardInsertServlet");
+//    driver.get("http://localhost:8080/poker-project/CardInsertServlet");
     //Warning: assertTextPresent may require manual changes
-    assertTrue(driver.findElement(By.cssSelector("BODY")).getText().matches("^[\\s\\S]*$"));
+    assertTrue(driver.findElement(By.cssSelector("BODY")).getText().contains("Winrate: 100.0"));
   }
 
   @After

@@ -81,8 +81,12 @@ public class MyServletLogIn extends HttpServlet {
                     	response.sendRedirect("home.jsp");
                         response.getWriter().println("Login successful!<br>");
                     } else {
+                    	// Set the content type to HTML
+                        response.setContentType("text/html");
                         // User does not exist or wrong password
-                        response.getWriter().println("Invalid username or password!<br>");
+                        response.getWriter().println("Invalid username or password! ");
+                        // Link to go back to login screen
+                        response.getWriter().println("<a href='loginScreen.html'>Back to Login</a>");
                     }
                 }
             } else {

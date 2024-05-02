@@ -22,9 +22,8 @@ public class LogOutSuccess {
   public void testLogOutSuccess() throws Exception {
     driver.get("http://localhost:8080/poker-project/home.jsp");
     driver.findElement(By.linkText("Log Out")).click();
-    driver.get("http://localhost:8080/poker-project/loginScreen.html");
-    //Warning: assertTextPresent may require manual changes
-    assertTrue(driver.findElement(By.cssSelector("BODY")).getText().matches("^[\\s\\S]*$"));
+//    driver.get("http://localhost:8080/poker-project/loginScreen.html");
+    assertTrue(driver.findElement(By.cssSelector("BODY")).getText().contains("Login Page"));
   }
 
   @After
