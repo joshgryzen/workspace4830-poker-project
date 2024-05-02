@@ -1,208 +1,238 @@
 <html>
 <head>
 <style>
-
 body {
-    margin: 0;
-    background-color: rgb(255, 255, 255);
-    margin: 0;
-    height: 100vh; /* Ensure body takes up full viewport height */
-    display: flex;
-    justify-content: center;
-    align-items: flex-end; /* Align items to the bottom */
+	margin: 0;
+	background-color: rgb(255, 255, 255);
+	margin: 0;
+	height: 100vh; /* Ensure body takes up full viewport height */
+	display: flex;
+	justify-content: center;
+	align-items: flex-end; /* Align items to the bottom */
 }
 
 .card_table {
-    position: absolute;
-    display: block;
-    box-sizing: border-box;
-    top: 30px;
-    left: 20px;
-
-    width: calc(100% - 40px);
-    height: calc(100vh - 60px);
-    max-height: 100%;
-    max-width: 100%;
-   
-    background: rgb(8,128,6);
-    background: radial-gradient(circle, rgba(8,128,6,1) 0%, rgba(38,52,38,1) 100%);
-    border: 25px solid #B87333;
-    border-radius: 10000px;
-    outline: 15px solid black;
-    box-shadow: 0 0 100px black;
+	position: absolute;
+	display: block;
+	box-sizing: border-box;
+	top: 30px;
+	left: 20px;
+	width: calc(100% - 40px);
+	height: calc(100vh - 60px);
+	max-height: 100%;
+	max-width: 100%;
+	background: rgb(8, 128, 6);
+	background: radial-gradient(circle, rgba(8, 128, 6, 1) 0%,
+		rgba(38, 52, 38, 1) 100%);
+	border: 25px solid #B87333;
+	border-radius: 10000px;
+	outline: 15px solid black;
+	box-shadow: 0 0 100px black;
 }
 
 section {
-    position: absolute;
-    width: auto;
-    padding:50px;
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    	 	 
+	position: absolute;
+	width: auto;
+	padding: 50px;
+	display: flex;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
 }
 
 label {
-    color: white;
-
+	color: white;
 }
 
 input[type="submit"] {
-    margin-top: -10px; /* Add some space above the submit button */
-
+	margin-top: -10px; /* Add some space above the submit button */
 }
 
 .rectangle-container {
-    position: relative;
+	position: relative;
 }
+
 .home-button {
-    margin-top: -10px;
-    margin-right: 10px;
+	margin-top: -10px;
+	margin-right: 10px;
 }
 
-
-      /* Style for clickable rectangles */
+/* Style for clickable rectangles */
 .rectangleHand {
-    width: 63px;
-    height: 86px;
-    background-color: rgba(255, 255, 255, 0.5); /* Adjust opacity as needed */
-    margin: 10px; /* Add some margin between rectangles */
-    cursor: pointer; /* Change cursor to pointer on hover */
-    display: inline-block; /* Display rectangles inline */
+	width: 63px;
+	height: 86px;
+	background-color: rgba(255, 255, 255, 0.5);
+	/* Adjust opacity as needed */
+	margin: 10px; /* Add some margin between rectangles */
+	cursor: pointer; /* Change cursor to pointer on hover */
+	display: inline-block; /* Display rectangles inline */
 }
-      /* Style for clickable rectangles */
+/* Style for clickable rectangles */
 .rectangleFlop {
-    width: 63px;
-    height: 86px;
-    background-color: rgba(255, 255, 255, 0.5); /* Adjust opacity as needed */
-    margin: 10px; /* Add some margin between rectangles */
-    cursor: pointer; /* Change cursor to pointer on hover */
-    display: inline-block; /* Display rectangles inline */
+	width: 63px;
+	height: 86px;
+	background-color: rgba(255, 255, 255, 0.5);
+	/* Adjust opacity as needed */
+	margin: 10px; /* Add some margin between rectangles */
+	cursor: pointer; /* Change cursor to pointer on hover */
+	display: inline-block; /* Display rectangles inline */
 }
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 500;
-    top: 150;
-    width: 980; /* Full width */
-    height: 430; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 500;
+	top: 150;
+	width: 980; /* Full width */
+	height: 430; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
 
 /* Modal content */
 .modal-content {
-    position: fixed; /* Stay in place */
-    left: 500;
-    top: 150;
-    width: 940; /* Full width */
-    height: 390; /* Full height */
-    padding: 20px;
-    border: 1px solid #888;
-
+	position: fixed; /* Stay in place */
+	left: 500;
+	top: 150;
+	width: 940; /* Full width */
+	height: 390; /* Full height */
+	padding: 20px;
+	border: 1px solid #888;
 }
 
 /* Close button */
 .close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+	color: #aaaaaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
+.close:hover, .close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
 }
 
 /* Style for card images */
 .card-image {
-    width: 63px; /* Adjust image size as needed */
-    height: 86; /* Maintain aspect ratio */
-    margin: 3px; /* Add some margin between card images */
-    box-sizing: border-box; /* Include border in dimensions */
-    border: 4px solid transparent; /* Initially transparent border */
+	width: 63px; /* Adjust image size as needed */
+	height: 86; /* Maintain aspect ratio */
+	margin: 3px; /* Add some margin between card images */
+	box-sizing: border-box; /* Include border in dimensions */
+	border: 4px solid transparent; /* Initially transparent border */
 }
 /* Add border styles for selected cards */
 .card-image.selected {
-    border-width: 4px;
-    border-style: solid;
+	border-width: 4px;
+	border-style: solid;
 }
 
 /* Border color for cards selected by 'hand' group */
 .card-image.selected.hand {
-    border-color: rgb(87, 224, 87);
+	border-color: rgb(87, 224, 87);
 }
 
 /* Border color for cards selected by 'flop' group */
 .card-image.selected.flop {
-    border-color: yellow;
+	border-color: yellow;
 }
+
 .card-image.grayed-out {
-    opacity: 0.5;
-    pointer-events: none;
+	opacity: 0.5;
+	pointer-events: none;
 }
+
 .playerCounter {
-    position: absolute;
-    top: 240px; /* Adjust top position as needed */
-    right: 20px; /* Adjust right position as needed */
-    background-color: white; /* Set background color to white */
-    padding: 5px 10px; /* Add padding for better appearance */
-    border-radius: 5px; /* Add border-radius for rounded corners */
+	position: absolute;
+	top: 240px; /* Adjust top position as needed */
+	right: 20px; /* Adjust right position as needed */
+	background-color: white; /* Set background color to white */
+	padding: 5px 10px; /* Add padding for better appearance */
+	border-radius: 5px; /* Add border-radius for rounded corners */
 }
 
 .playerLabel {
-    margin-bottom: 5px; /* Add margin between label and count */
-}
-.playerCounter button {
-    margin: 0 5px; /* Adjust margin between buttons as needed */
+	margin-bottom: 5px; /* Add margin between label and count */
 }
 
+.playerCounter button {
+	margin: 0 5px; /* Adjust margin between buttons as needed */
+}
+.turnCounter {
+	position: absolute;
+	top: 240px; /* Adjust top position as needed */
+	left: 20px; /* Adjust left position as needed */
+	background-color: white; /* Set background color to white */
+	padding: 5px 10px; /* Add padding for better appearance */
+	border-radius: 5px; /* Add border-radius for rounded corners */
+}
+
+.turnLabel {
+	margin-bottom: 5px; /* Add margin between label and count */
+}
+
+.turnCounter button {
+	margin: 0 5px; /* Adjust margin between buttons as needed */
+}
 
 </style>
 </head>
 <body>
-
-<div class="card_table" id=card_table>
-</div>
-<section>
-    <form action="insertPlayerHand" method="POST">
-        <div class="rectangle-container">
-            <!-- Clickable rectangles for flop -->
-            <div class="rectangleFlop" id="rectangleFlop3" onclick="handleCardSelection('flop', 'rectangleFlop3')"></div>
-            <div class="rectangleFlop" id="rectangleFlop4" onclick="handleCardSelection('flop', 'rectangleFlop4')"></div>
-            <div class="rectangleFlop" id="rectangleFlop5" onclick="handleCardSelection('flop', 'rectangleFlop5')"></div>
-            <div class="rectangleFlop" id="rectangleFlop6" onclick="handleCardSelection('flop', 'rectangleFlop6')"></div>
-            <div class="rectangleFlop" id="rectangleFlop7" onclick="handleCardSelection('flop', 'rectangleFlop7')"></div>                       
-        </div>
-        <!-- New rectangles for player hand -->
-        <div class="rectangle-container">
-            <div class="rectangleHand" id="rectangleHand1" onclick="handleCardSelection('hand', 'rectangleHand1')"></div>
-            <div class="rectangleHand" id="rectangleHand2" onclick="handleCardSelection('hand', 'rectangleHand2')"></div>
-        </div>
-        <input type="button" class="home-button" value="Home" onclick="window.location.href='home.jsp';">   
-        <!-- Counter button for number of players -->
-        <div class="playerCounter" id="playerCounter">
-            <div class="playerLabel">Players:</div>
-            <button type="button" onclick="decrementPlayerCount()">-</button>
-            <span id="playerCount">0</span>
-            <button type="button" onclick="incrementPlayerCount()">+</button>
-        </div>                
-        <input type="submit" value="Submit"/>
-    </form>
-</section>
-<!-- Modal dialogue box -->
-<div id="myModal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <div id="modalContent"></div>
-    </div>
-</div>
+	<div class="card_table" id=card_table></div>
+	<section>
+		<form id="cardinsert" action="CardInsertServlet" method="POST">
+			<div class="rectangle-container">
+				<!-- Clickable rectangles for flop -->
+				<div class="rectangleFlop" id="rectangleFlop3"
+					onclick="handleCardSelection('flop', 'rectangleFlop3')"></div>
+				<div class="rectangleFlop" id="rectangleFlop4"
+					onclick="handleCardSelection('flop', 'rectangleFlop4')"></div>
+				<div class="rectangleFlop" id="rectangleFlop5"
+					onclick="handleCardSelection('flop', 'rectangleFlop5')"></div>
+				<div class="rectangleFlop" id="rectangleFlop6"
+					onclick="handleCardSelection('flop', 'rectangleFlop6')"></div>
+				<div class="rectangleFlop" id="rectangleFlop7"
+					onclick="handleCardSelection('flop', 'rectangleFlop7')"></div>
+			</div>
+			<!-- New rectangles for player hand -->
+			<div class="rectangle-container">
+				<div class="rectangleHand" id="rectangleHand1"
+					onclick="handleCardSelection('hand', 'rectangleHand1')"></div>
+				<div class="rectangleHand" id="rectangleHand2"
+					onclick="handleCardSelection('hand', 'rectangleHand2')"></div>
+			</div>
+			<div class="turnCounter" id="turnCounter">
+				<div class="turnLabel">Turn:</div>
+				<button type="button" onclick="decrementTurnCount()">-</button>
+				<span id="turnCount">0</span>
+				<button type="button" onclick="incrementTurnCount()">+</button>
+			</div>
+			<input type="button" class="home-button" value="Home"
+				onclick="window.location.href='home.jsp';">
+			<!-- Counter button for number of players -->
+			<div class="playerCounter" id="playerCounter">
+				<div class="playerLabel">Players:</div>
+				<button type="button" onclick="decrementPlayerCount()">-</button>
+				<span id="playerCount">0</span>
+				<button type="button" onclick="incrementPlayerCount()">+</button>
+			</div>
+			<input type="hidden" id="playerNumberInput" name="playerNumber"
+				value=""> <input type="hidden" id="turnNumberInput"
+				name="turnNumber" value=""> <input type="hidden"
+				id="flopInput" name="flop" value=""> <input type="hidden"
+				id="handInput" name="hand" value=""> <input type="submit"
+				value="Submit" />
+		</form>
+	</section>
+	<!-- Modal dialogue box -->
+	<div id="myModal" class="modal">
+		<div class="modal-content">
+			<span class="close">&times;</span>
+			<div id="modalContent"></div>
+		</div>
+	</div>
 <script>
     // Get the modal
     var modal = document.getElementById("myModal");
@@ -393,19 +423,48 @@ input[type="submit"] {
             updateSelectionIndicators(); // Update visual feedback for selection mode
         });
     });
+    
     // Event listener for the form submit
-// Event listener for the form submit
-    document.querySelector('form').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent default form submission behavior
+	document.querySelector('form').addEventListener('submit', function(event) {
+	    // Retrieve data from the form
+	    const formData = getDataFromForm();
+	
+	    // Populate hidden input fields in the form with the retrieved data
+	    document.getElementById("playerNumberInput").value = formData.playerNumber;
+	    document.getElementById("turnNumberInput").value = formData.turnNumber;
+	    document.getElementById("flopInput").value = formData.flop;
+	    document.getElementById("handInput").value = formData.hand;
+	
+	    const selectedCards = getCardStringRepresentations(selectedHandCards, selectedFlopCards);
+	    console.log(selectedCards.hand);
+	    console.log(selectedCards.flop);
+	    console.log(playerCount);
+	    console.log(turnCount);
+	
+	    // Construct the URL with query parameters
+	    const url = 'CardInsertServlet' + 
+	                '?hand=' + encodeURIComponent(selectedCards.hand) + 
+	                '&flop=' + encodeURIComponent(selectedCards.flop) + 
+	                '&turnNumber=' + encodeURIComponent(turnCount) + 
+	                '&playerNumber=' + encodeURIComponent(playerCount);
+	
+	    // Perform the GET request
+	    fetch(url, {
+	        method: 'GET'
+	        // Add other options if needed, such as headers
+	    })
+	    .then(response => {
+	        if (response.ok) {
+	            console.log('Form data sent successfully');
+	        } else {
+	            console.error('Failed to send form data');
+	        }
+	    })
+	    .catch(error => {
+	        console.error('Error:', error);
+	    });
+	});
 
-        // Get the string representations for selected cards
-        const selectedCards = getCardStringRepresentations(selectedHandCards, selectedFlopCards);
-        console.log(selectedCards.hand);
-        console.log(selectedCards.flop);
-        console.log(playerCount);
-
-        // You can further process the data here, such as sending it to a server
-    });
 
     // Call the populateModalWithCardImages() function when the window has finished loading
     window.onload = function() {
@@ -457,7 +516,57 @@ input[type="submit"] {
             flop: flopString
         };
     }
+    var turnCount = 0;
 
+    // Function to increment turn count
+    function incrementTurnCount() {
+        turnCount++;
+        updateTurnCountDisplay();
+    }
+
+    // Function to decrement turn count
+    function decrementTurnCount() {
+        if (turnCount > 0) {
+            turnCount--;
+            updateTurnCountDisplay();
+        }
+    }
+
+    // Function to update turn count display
+    function updateTurnCountDisplay() {
+        document.getElementById("turnCount").innerText = turnCount;
+    }
+    
+    function getDataFromForm() {
+        // Retrieve player number
+        const playerNumber = parseInt(document.getElementById("playerCount").innerText);
+
+        // Retrieve turn number
+        const turnNumber = parseInt(document.getElementById("turnCount").innerText);
+
+        // Retrieve selected flop cards
+        const selectedFlopCards = [];
+        document.querySelectorAll('.card-image.selected.flop').forEach(function(cardImage) {
+            selectedFlopCards.push(cardImage.src);
+        });
+
+        // Retrieve selected hand cards
+        const selectedHandCards = [];
+        document.querySelectorAll('.card-image.selected.hand').forEach(function(cardImage) {
+            selectedHandCards.push(cardImage.src);
+        });
+
+        // Use the existing function to get string representations of hand and flop cards
+        const cardStrings = getCardStringRepresentations(selectedHandCards, selectedFlopCards);
+
+        // Return the gathered data as an object
+        return {
+            playerNumber: playerNumber,
+            turnNumber: turnNumber,
+            flop: cardStrings.flop,
+            hand: cardStrings.hand
+        };
+    }
 
 
 </script>

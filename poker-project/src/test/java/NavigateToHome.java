@@ -22,9 +22,9 @@ public class NavigateToHome {
   public void testNavigateToHome() throws Exception {
     driver.get("http://localhost:8080/poker-project/insert.html");
     driver.findElement(By.linkText("Home")).click();
-    driver.get("http://localhost:8080/poker-project/home.jsp");
+//    driver.get("http://localhost:8080/poker-project/home.jsp");
     //Warning: assertTextPresent may require manual changes
-    assertTrue(driver.findElement(By.cssSelector("BODY")).getText().matches("^[\\s\\S]*$"));
+    assertTrue(driver.findElement(By.cssSelector("header")).getText().matches("Home Page"));
   }
 
   @After

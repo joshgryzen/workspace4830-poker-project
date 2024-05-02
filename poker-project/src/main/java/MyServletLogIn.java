@@ -48,13 +48,11 @@ public class MyServletLogIn extends HttpServlet {
 
 
     private void handleLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    	// Set session so we can pass username to the home page
-    	HttpSession session = request.getSession();
-    	
         // Debugging statements before executing login logic
         System.out.println("Executing login logic...");
         String username = request.getParameter("uname");
         String password = request.getParameter("psw");
+        HttpSession session = request.getSession();
         // Debugging statement before using the database connection
         System.out.println("Attempting to use database connection...");
         // Get the connection instance from MyServletDB
@@ -79,12 +77,16 @@ public class MyServletLogIn extends HttpServlet {
                     if (resultSet.next()) {
                         // User exists, login successful
                     	// Store username in session
-                    	session.setAttribute("username", username); 
+                        session.setAttribute("username", username);
                     	response.sendRedirect("home.jsp");
                         response.getWriter().println("Login successful!<br>");
                     } else {
+                    	// Set the content type to HTML
+                        response.setContentType("text/html");
                         // User does not exist or wrong password
-                        response.getWriter().println("Invalid username or password!<br>");
+                        response.getWriter().println("Invalid username or password! ");
+                        // Link to go back to login screen
+                        response.getWriter().println("<a href='loginScreen.html'>Back to Login</a>");
                     }
                 }
             } else {
@@ -105,6 +107,7 @@ public class MyServletLogIn extends HttpServlet {
     private void handleSignup(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // Print to indicate the method is invoked
         System.out.println("Handling signup action...");
+
         String username = request.getParameter("new_uname");
         String password = request.getParameter("new_psw");
 
@@ -146,14 +149,23 @@ public class MyServletLogIn extends HttpServlet {
                             createUserStatement.setString(1, username);
                             createUserStatement.setString(2, password);
                             int rowsInserted = createUserStatement.executeUpdate();
+                            
+                            // Set the content type to HTML
+                            response.setContentType("text/html");
+                            
+                            // Check if sign up was successful
                             if (rowsInserted > 0) {
                                 // Print to indicate successful user creation
                                 System.out.println("User created successfully!");
                                 response.getWriter().println("User created successfully!<br>");
+                                // Link to go back to login screen
+                                response.getWriter().println("<a href='loginScreen.html'>Back to Login</a>");
                             } else {
                                 // Print to indicate failure in user creation
                                 System.out.println("Failed to create user!");
                                 response.getWriter().println("Failed to create user!<br>");
+                                // Link to go back to login screen
+                                response.getWriter().println("<a href='loginScreen.html'>Back to Login</a>");
                             }
                         }
                     }

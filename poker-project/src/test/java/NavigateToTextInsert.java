@@ -22,9 +22,8 @@ public class NavigateToTextInsert {
   public void testNavigateToTextInsert() throws Exception {
     driver.get("http://localhost:8080/poker-project/home.jsp");
     driver.findElement(By.linkText("Text Insert")).click();
-    driver.get("http://localhost:8080/poker-project/insert.html");
-    //Warning: assertTextPresent may require manual changes
-    assertTrue(driver.findElement(By.cssSelector("BODY")).getText().matches("^[\\s\\S]*$"));
+//    driver.get("http://localhost:8080/poker-project/insert.html");
+    assertTrue(driver.findElement(By.cssSelector("header")).getText().matches("Insert Cards"));
   }
 
   @After

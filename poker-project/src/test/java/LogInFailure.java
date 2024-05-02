@@ -28,9 +28,7 @@ public class LogInFailure {
     driver.findElement(By.id("psw")).clear();
     driver.findElement(By.id("psw")).sendKeys("borken");
     driver.findElement(By.name("loginButton")).click();
-    driver.get("http://localhost:8080/poker-project/MyServletLogIn?action=login");
-    //Warning: assertTextPresent may require manual changes
-    assertTrue(driver.findElement(By.cssSelector("BODY")).getText().matches("^[\\s\\S]*$"));
+    assertTrue(driver.findElement(By.cssSelector("body")).getText().contains("Invalid username or password!"));
   }
 
   @After

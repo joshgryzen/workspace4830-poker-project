@@ -27,7 +27,7 @@ public class NavigateToVisualInput {
   public void testNavigateToVisualInput() throws Exception {
     driver.get("http://localhost:8080/poker-project/home.jsp");
     driver.findElement(By.linkText("Visual Insert")).click();
-    driver.get("http://localhost:8080/poker-project/cardgame.html");
+//    driver.get("http://localhost:8080/poker-project/cardgame.html");
     assertTrue(isElementPresent(By.id("card_table")));
   }
 

@@ -27,15 +27,14 @@ public class CardInsertServlet extends HttpServlet {
    }
 
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	  HttpSession session = request.getSession();
-	  
 	  StringConversion servlet = new StringConversion();
+	  HttpSession session = request.getSession();
 	  servlet.doPost(request, response);	   
       String hand = request.getParameter("hand");
       String flop = request.getParameter("flop");
-      String turn = request.getParameter("turn");
-      String players = request.getParameter("players");
       String username = (String) session.getAttribute("username"); 
+      String turn = request.getParameter("turnNumber");
+      String players = request.getParameter("playerNumber");
 
       Connection connection = null;
       
@@ -68,8 +67,8 @@ public class CardInsertServlet extends HttpServlet {
           insertStmt.setDouble(5, winrate);
           insertStmt.setString(6, username);
           insertStmt.executeUpdate();
-          
-          
+            
+	      // Redirect to cardgame.html with winrate as a parameter         
           connection.close();
       } catch (Exception e) {
           e.printStackTrace();
@@ -96,11 +95,14 @@ public class CardInsertServlet extends HttpServlet {
             "</ul>\n");
 
       out.println("<a href=/poker-project/home.jsp>Return Home</a> <br>");
-      out.println("</body></html>");
+      out.println("</body></html>");   
+      
+
    }
 
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       doGet(request, response);
+      
    }
 
 }

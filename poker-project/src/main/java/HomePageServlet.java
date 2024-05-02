@@ -16,7 +16,7 @@ public class HomePageServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	// Get session to access username
+        //Session to access username
     	HttpSession session = request.getSession();
     	
     	response.setContentType("application/json");
@@ -32,14 +32,13 @@ public class HomePageServlet extends HttpServlet {
             DBConnection.getDBConnection(getServletContext());
             connection = DBConnection.connection;
 
-            String username = (String) session.getAttribute("username"); 
+            String username = (String) session.getAttribute("username");
             String selectSQL = "SELECT * FROM pokerTable WHERE username = \"" + username + "\"";
             preparedStatement = connection.prepareStatement(selectSQL);
             resultSet = preparedStatement.executeQuery();
 
             StringBuilder jsonData = new StringBuilder("[");
             while (resultSet.next()) {
-
                 String hand = resultSet.getString("hand");
                 String flop = resultSet.getString("flop");
                 int turn = resultSet.getInt("turn");

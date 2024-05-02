@@ -28,9 +28,9 @@ public class SignUpFailure {
     driver.findElement(By.id("new_psw")).clear();
     driver.findElement(By.id("new_psw")).sendKeys("josh");
     driver.findElement(By.name("signupbutton")).click();
-    driver.get("http://localhost:8080/poker-project/MyServletLogIn?action=signup");
+//    driver.get("http://localhost:8080/poker-project/MyServletLogIn?action=signup");
     //Warning: assertTextPresent may require manual changes
-    assertTrue(driver.findElement(By.cssSelector("BODY")).getText().matches("^[\\s\\S]*$"));
+    assertTrue(driver.findElement(By.cssSelector("BODY")).getText().contains("exists"));
   }
 
   @After

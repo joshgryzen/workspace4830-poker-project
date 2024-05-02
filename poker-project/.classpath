@@ -15,7 +15,7 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="src" path="src/main/webapp/Cards"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="lib" path="C:/Users/cjgry/Desktop/selenium-java-4.20.0/auto-service-annotations-1.1.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/cjgry/Desktop/selenium-java-4.20.0/auto-service-annotations-1.1.1-sources.jar"/>
 	<classpathentry kind="lib" path="C:/Users/cjgry/Desktop/selenium-java-4.20.0/byte-buddy-1.14.14.jar"/>
